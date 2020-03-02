@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html>
+	<head>
+		<title>
+			Exotic-Bay -
+			{% block title_block %}
+				Shop now!
+			{% endblock %}
+		</title>
+	</head>
+	<body>
+		<div>
+			{% block body_block %}
+			{% endblock %}
+		</div>
+		<hr />
+		<div>
+			<ul>
+				<li><a href="{% url 'exotic_bay:index' %}">Index</a></li>
+				<li><a href="{% url 'exotic_bay:about' %}">About</a></li>
+				<li><a href="{% url 'exotic_bay:contact' %}">Contact Us</a></li>
+			</ul>
+		</div>
+	</body>
+</html>
