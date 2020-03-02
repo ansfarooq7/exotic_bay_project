@@ -6,3 +6,6 @@ def index(request):
 
 def contact_us(request):
     return HttpResponse("Exotic-Bay Contact Us page")
+
+def about(request):
+    return HttpResponse("This is the about page")
