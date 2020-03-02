@@ -21,5 +21,6 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('admin/', admin.site.urls),
     path('exotic-bay/', include('exotic_bay.urls')),
+    path('accounts/', include('allauth.urls')),
 
 ]
