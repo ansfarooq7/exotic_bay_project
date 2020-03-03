@@ -3,8 +3,7 @@ from django.conf import settings
 from django.db import models
 from django.db.models import Sum
 from django.shortcuts import reverse
-
-# from django_countries.fields import CountryField
+from django_countries.fields import CountryField
 
 CATEGORY_CHOICES = (
     ('R', 'Reptiles'),
@@ -69,20 +68,12 @@ class PetOrder(models.Model):
     quantity = models.IntegerField(default=1)
 
     def __str__(self):
-        return f"{self.quantity} of {self.item.title}"
+        return f"{self.quantity} of {self.pet.name}"
 
     def get_total_item_price(self):
-        return self.quantity * self.item.price
-
-    def get_total_discount_item_price(self):
-        return self.quantity * self.item.discount_price
-
-    def get_amount_saved(self):
-        return self.get_total_item_price() - self.get_total_discount_item_price()
+        return self.quantity * self.pet.price
 
     def get_final_price(self):
-        if self.item.discount_price:
-            return self.get_total_discount_item_price()
         return self.get_total_item_price()
 
 
@@ -133,7 +124,7 @@ class Address(models.Model):
                              on_delete=models.CASCADE)
     street_address = models.CharField(max_length=100)
     apartment_address = models.CharField(max_length=100)
-    # country = CountryField(multiple=False)
+    country = CountryField(multiple=False)
     postcode = models.CharField(max_length=10)
     address_type = models.CharField(max_length=1, choices=ADDRESS_CHOICES)
     default = models.BooleanField(default=False)
