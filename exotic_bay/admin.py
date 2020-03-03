@@ -1,26 +1,28 @@
 from django.contrib import admin
 
-from .models import Pet, PetOrder, Order, License, Payment, Address, UserProfile
+from exotic_bay.models import Pet, PetOrder, Order, License, Payment, Address, UserProfile
 
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['user',
-                    'ordered',
-                    'being_delivered',
-                    'received',
-                    'shipping_address',
-                    'billing_address',
-                    'payment'
-                    ]
+    list_display = [
+        'user',
+        'ordered',
+        'being_delivered',
+        'received',
+        'shipping_address',
+        'billing_address',
+        'payment'
+    ]
     list_display_links = [
         'user',
         'shipping_address',
         'billing_address',
         'payment'
     ]
-    list_filter = ['ordered',
-                   'being_delivered',
-                   'received',]
+    list_filter = [
+        'ordered',
+        'being_delivered',
+        'received', ]
     search_fields = [
         'user__username',
         'ref_code'
