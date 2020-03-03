@@ -2,11 +2,11 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 
-def index(request):
+def home(request):
     context_dict = {}
 
     # Obtain our Response object early so we can add cookie information.
-    response = render(request, 'exotic_bay/index.html', context=context_dict)
+    response = render(request, 'exotic_bay/home.html', context=context_dict)
 
     # Render the response and send it back.
     return response
