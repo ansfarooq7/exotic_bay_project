@@ -1,9 +1,9 @@
 from django.contrib import admin
 
-from exotic_bay.models import Pet, PetOrder, Order, License, Payment, Address, UserProfile
+from exotic_bay.models import Pet, PetOrder, Basket, License, Payment, Address, UserProfile
 
 
-class OrderAdmin(admin.ModelAdmin):
+class BasketAdmin(admin.ModelAdmin):
     list_display = [
         'user',
         'ordered',
@@ -45,7 +45,7 @@ class AddressAdmin(admin.ModelAdmin):
 
 admin.site.register(Pet)
 admin.site.register(PetOrder)
-admin.site.register(Order, OrderAdmin)
+admin.site.register(Basket, BasketAdmin)
 admin.site.register(Payment)
 admin.site.register(License)
 admin.site.register(Address, AddressAdmin)

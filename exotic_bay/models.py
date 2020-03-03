@@ -26,7 +26,7 @@ class UserProfile(models.Model):
     one_click_purchasing = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.user.username
+        return self.user.name
 
 
 class Pet(models.Model):
@@ -70,18 +70,18 @@ class PetOrder(models.Model):
     def __str__(self):
         return f"{self.quantity} of {self.pet.name}"
 
-    def get_total_item_price(self):
+    def get_total_pet_price(self):
         return self.quantity * self.pet.price
 
     def get_final_price(self):
-        return self.get_total_item_price()
+        return self.get_total_pet_price()
 
 
-class Order(models.Model):
+class Basket(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
     ref_code = models.CharField(max_length=20, blank=True, null=True)
-    items = models.ManyToManyField(PetOrder)
+    pets = models.ManyToManyField(PetOrder)
     start_date = models.DateTimeField(auto_now_add=True)
     ordered_date = models.DateTimeField()
     ordered = models.BooleanField(default=False)
@@ -105,12 +105,12 @@ class Order(models.Model):
     '''
 
     def __str__(self):
-        return self.user.username
+        return self.user.name
 
     def get_total(self):
         total = 0
-        for order_item in self.items.all():
-            total += order_item.get_final_price()
+        for pet_order in self.pets.all():
+            total += pet_order.get_final_price()
         return total
 
 
@@ -130,7 +130,7 @@ class Address(models.Model):
     default = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.user.username
+        return self.user.name
 
     class Meta:
         verbose_name_plural = 'Addresses'
@@ -144,7 +144,7 @@ class Payment(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.user.username
+        return self.user.name
 
 
 def userprofile_receiver(sender, instance, created, *args, **kwargs):
