@@ -1,0 +1,27 @@
+{% extends 'exotic_bay/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Register
+{% endblock %}
+
+{% block body_block %}
+    <h1>Create an account</h1>
+    {% if registered %}
+        Thank-you for creating an account!
+        <a href="{% url 'exotic_bay:home' %}">Return to the homepage.</a><br />
+    {% else %}
+        Register here!<br />
+
+        <form id="user_form" method="post" action="{%url 'exotic_bay:register' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {{ user_form.as_p }}
+
+            <input type="submit" name="submit" value="Submit" />
+        </form>
+    {% endif %}
+{% endblock %}
+
+
+
