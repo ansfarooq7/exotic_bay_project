@@ -13,26 +13,56 @@
     {% if pet %}
 
         <div>
-
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'exotic_bay:home' %}">Home</a></li>
+                  <li class="breadcrumb-item"><a href="#">Pets</a></li>
+                <li class="breadcrumb-item"><a href="#">{{ pet.type }}</a></li>
+                <li class="breadcrumb-item active" aria-current="{{ pet.slug }}">{{ pet.name }}</li>
+              </ol>
+            </nav>
         </div>
 
-        <div>
-            <h1>{{ pet.name }}</h1>
-            <h4>{{ pet.scientificName }}</h4>
+        <div class="container dark-grey-text mt-5">
+        <div class="row wow fadeIn">
+            <div class="col-md-6 mb-4">
+                {% if image %}
+                    <img class="img-fluid img-thumbnail" src="{{ pet.image.url }}" />
+                {% endif %}
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="p-4">
+                    <div class="mb-3">
+                        <h1>{{ pet.name }}</h1>
+                        <h4>{{ pet.scientificName }}</h4>
+                        <span>£{{ pet.price }}</span>
+                        <p>{{ pet.description }}</p>
+
+                        {% comment %} <form class="d-flex justify-content-left">
+                          <!-- Default input -->
+                          <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">
+                          <button class="btn btn-primary btn-md my-0 p" type="submit">
+                            Add to cart
+                            <i class="fas fa-shopping-cart ml-1"></i>
+                          </button>
+
+                        </form> {% endcomment %}
+                        <a href="" class="btn btn-primary btn-md my-0 p">
+                          Add to Basket
+                          <i class="fas fa-shopping-cart ml-1"></i>
+                        </a>
+                        <a href="" class="btn btn-secondary btn-md my-0 p">
+                          Watchlist
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h2>Care Details</h2>
+                <p>{{ pet.careDetails }}</p>
+            </div>
         </div>
-        <div class="w-75 p-3">
-        <div class="w-50 p-3">
-            {% if image %}
-                <img class="img-fluid img-thumbnail" src="{{ pet.image.url }}" />
-            {% endif %}
-        </div>
-        </div>
-        <div>
-            <p>{{ pet.description }}</p>
-        </div>
-        <div>
-            <h2>Care Details</h2>
-            <p>{{ pet.careDetails }}</p>
         </div>
     {% endif %}
 {% endblock %}

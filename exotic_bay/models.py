@@ -7,11 +7,11 @@ from django.template.defaultfilters import slugify
 from django_countries.fields import CountryField
 
 CATEGORY_CHOICES = (
-    ('R', 'Reptiles'),
-    ('C', 'Canidae'),
-    ('A', 'Amphibians'),
-    ('I', 'Inverts'),
-    ('M', 'Marsupials')
+    ('Reptiles', 'Reptiles'),
+    ('Canidae', 'Canidae'),
+    ('Amphibians', 'Amphibians'),
+    ('Inverts', 'Inverts'),
+    ('Marsupials', 'Marsupials')
 )
 
 ADDRESS_CHOICES = (
