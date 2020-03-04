@@ -18,7 +18,7 @@ def home(request):
     return response
 
 
-def pet_details(request, pet_name_slug):
+def pet_details(request, type, pet_name_slug):
     # Create a context dictionary which we can pass
     # to the template rendering engine.
     context_dict = {}
