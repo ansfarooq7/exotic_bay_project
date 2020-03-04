@@ -1,3 +1,5 @@
+import datetime
+
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
@@ -33,12 +35,13 @@ class Pet(models.Model):
     NAME_MAX_LENGTH = 30
     name = models.CharField(max_length=NAME_MAX_LENGTH, unique=True)
     scientificName = models.CharField(max_length=100)
-    price = models.FloatField(null=True)
-    type = models.CharField(choices=CATEGORY_CHOICES, max_length=2)
+    price = models.DecimalField(max_digits=7, decimal_places=2, default=0)
+    type = models.CharField(choices=CATEGORY_CHOICES, max_length=10)
     stock = models.IntegerField(default=0)
     description = models.TextField()
     careDetails = models.TextField()
     orders = models.IntegerField(default=0)
+    date_added = models.DateField(default=datetime.date.today)
     image = models.ImageField(upload_to='pet_images', blank=True)
     slug = models.SlugField(unique=True)
 
@@ -63,6 +66,15 @@ class Pet(models.Model):
         return reverse("exotic_bay:remove-from-basket", kwargs={
             'slug': self.slug
         })
+
+    def is_new(self):
+        date_added = self.date_added
+        today = datetime.date.today()
+        new_period = datetime.timedelta(weeks=4)
+        zero = datetime.timedelta(days=0)
+
+        last_month = today - new_period
+        return new_period >= (date_added - last_month) >= zero
 
 
 class PetOrder(models.Model):
