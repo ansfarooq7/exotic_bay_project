@@ -1,34 +1,83 @@
 <!DOCTYPE html>
+<html lang="en">
 {% load staticfiles %}
 
 <html>
 	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link href="https://getbootstrap.com/docs/4.2/dist/css/bootstrap.min.css" rel="stylesheet">
+			<!-- Custom styles for this template -->
+		<link href="https://getbootstrap.com/docs/4.2/examples/dashboard/dashboard.css" rel="stylesheet">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 		<title>
 			Exotic-Bay -
 			{% block title_block %}
 				Shop now!
 			{% endblock %}
 		</title>
+		<style type="text/css">
+       .top-right {
+            top: 25%;
+            right: 3%;
+        }
+    </style>
 	</head>
 	<body>
+	<header>
+		<!-- Navigation Bar -->
+            <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+               <a class="navbar-brand" href="#">Exotic Bay</a>
+                <ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'exotic_bay:home' %}">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'exotic_bay:about' %}">About</a>
+					</li><li class="nav-item">
+						<a class="nav-link" href="{% url 'exotic_bay:contact' %}">Contact</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'exotic_bay:home' %}">Home</a>
+					</li>
+					<!-- Pets Dropdown menu-->
+    				<li class="nav-item dropdown">
+      					<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Pets</a>
+      					<div class="dropdown-menu">
+							<a class="dropdown-item" href="#">Reptiles</a>
+							<a class="dropdown-item" href="#">Canidae</a>
+							<a class="dropdown-item" href="#">Amphibians</a>
+							<a class="dropdown-item" href="#">Inverts</a>
+							<a class="dropdown-item" href="#">Marsupial</a>
+      					</div>
+  					  </li>
+					{% if user.is_authenticated %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'exotic_bay:logout' %}">Logout</a>
+					</li>
+					{% else %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'exotic_bay:register' %}">Sign Up</a>
+					</li>
+					<!-- Login Button -->
+					<div class="position-absolute top-right">
+						<button id="loginButton" type="button" class="btn btn-primary btn-sm">Login</button>
+					</div>
+					<script type="text/javascript">
+						document.getElementById("loginButton").onclick = function () {
+							location.href = "{% url 'exotic_bay:login' %}";
+						};
+					</script>
+					{% endif %}
+                    </ul>
+            </nav>
+        </header>
 		<div>
 			{% block body_block %}
 			{% endblock %}
 		</div>
 		<hr />
-		<div>
-			<ul>
-				<li><a href="{% url 'exotic_bay:home' %}">Home</a></li>
-				<li><a href="{% url 'exotic_bay:about' %}">About</a></li>
-				<li><a href="{% url 'exotic_bay:contact' %}">Contact Us</a></li>
-				{% if user.is_authenticated %}
-					<li><a href="{% url 'exotic_bay:logout' %}">Logout</a></li>
-				{% else %}
-					<li><a href="{% url 'exotic_bay:register' %}">Sign Up</a></li>
-					<li><a href="{% url 'exotic_bay:login' %}">Login</a></li>
-				{% endif %}
-
-			</ul>
-		</div>
 	</body>
 </html>
