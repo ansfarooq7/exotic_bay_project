@@ -1,11 +1,10 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-from django.shortcuts import redirect
-from django.shortcuts import render
+from exotic_bay.forms import UserForm, ContactForm
+from django.core.mail import send_mail, BadHeaderError
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import redirect, render
 from django.urls import reverse
-
-from exotic_bay.forms import UserForm
 from exotic_bay.models import Pet
 
 
@@ -53,17 +52,7 @@ def pet_details(request, pet_name_slug):
     # Go render the response and return it to the client.
     return render(request, 'exotic_bay/pet.html', context=context_dict)
 
-
-def contact_us(request):
-    context_dict = {}
-
-    # Obtain our Response object early so we can add cookie information.
-    response = render(request, 'exotic_bay/contact_us.html', context=context_dict)
-
-    # Render the response and send it back.
-    return response
-
-
+  
 def about(request):
     context_dict = {}
 
@@ -125,3 +114,23 @@ def user_logout(request):
     logout(request)
 
     return redirect(reverse('exotic_bay:home'))
+
+
+def contact_us(request):
+    if request.method == 'GET':
+        form = ContactForm()
+    else:
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            from_email = form.cleaned_data['from_email']
+            message = form.cleaned_data['message']
+            try:
+                send_mail(subject, message, from_email, ['2384693A@student.gla.ac.uk'])
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
+            return redirect('exotic_bay:success')
+    return render(request, 'exotic_bay/contact_us.html', {'form': form})
+
+def success(request):
+    return HttpResponse('Success! Thank you for your message.')

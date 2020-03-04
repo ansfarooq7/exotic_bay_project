@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_countries',
     'crispy_forms',
+    #'exotic_bay.apps.ExoticBayConfig',
     'exotic_bay',
 ]
 
@@ -58,7 +59,7 @@ ROOT_URLCONF = 'exotic_bay_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIR, ],
+        'DIRS': [TEMPLATE_DIR, os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -127,3 +128,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 LOGIN_URL = 'exotic_bay:login'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
