@@ -13,7 +13,7 @@ def populate():
     pets = {'Mexican Red Knee':
                 {'scientificName': 'Brachypelma hamorii (ex smithi)',
                  'price': 35,
-                 'type': 'I',
+                 'type': 'Inverts',
                  'stock': 1000,
                  'description': 'Mexican Red Knee is a popular choice for beginners and enthusiasts alike.  Like most '
                                 'tarantulas, it has a long lifespan.',
