@@ -4,6 +4,7 @@ from django.db import models
 from django.db.models import Sum
 from django.shortcuts import reverse
 from django_countries.fields import CountryField
+from django.contrib.auth.models import User
 
 CATEGORY_CHOICES = (
     ('R', 'Reptiles'),
@@ -20,13 +21,12 @@ ADDRESS_CHOICES = (
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     stripe_customer_id = models.CharField(max_length=50, blank=True, null=True)
     one_click_purchasing = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.user.name
+        return self.user.username
 
 
 class Pet(models.Model):
@@ -68,7 +68,7 @@ class PetOrder(models.Model):
     quantity = models.IntegerField(default=1)
 
     def __str__(self):
-        return f"{self.quantity} of {self.pet.name}"
+        return "{self.quantity} of {self.pet.name}"
 
     def get_total_pet_price(self):
         return self.quantity * self.pet.price
@@ -150,6 +150,5 @@ class Payment(models.Model):
 def userprofile_receiver(sender, instance, created, *args, **kwargs):
     if created:
         userprofile = UserProfile.objects.create(user=instance)
-
 
 post_save.connect(userprofile_receiver, sender=settings.AUTH_USER_MODEL)

@@ -21,6 +21,12 @@
 				<li><a href="{% url 'exotic_bay:home' %}">Home</a></li>
 				<li><a href="{% url 'exotic_bay:about' %}">About</a></li>
 				<li><a href="{% url 'exotic_bay:contact' %}">Contact Us</a></li>
+				{% if user.is_authenticated %}
+					<li><a href="{% url 'exotic_bay:logout' %}">Logout</a></li>
+				{% else %}
+					<li><a href="{% url 'exotic_bay:register' %}">Sign Up</a></li>
+					<li><a href="{% url 'exotic_bay:login' %}">Login</a></li>
+				{% endif %}
 			</ul>
 		</div>
 	</body>
