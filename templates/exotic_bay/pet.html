@@ -24,45 +24,51 @@
         </div>
 
         <div class="container dark-grey-text mt-5">
-        <div class="row wow fadeIn">
-            <div class="col-md-6 mb-4">
-                {% if image %}
-                    <img class="img-fluid img-thumbnail" src="{{ pet.image.url }}" />
-                {% endif %}
-            </div>
+            <div class="row wow fadeIn">
+                <div class="col-md-6 mb-4">
+                    {% if image %}
+                        <img class="img-fluid img-thumbnail" src="{{ pet.image.url }}" />
+                    {% endif %}
+                </div>
 
-            <div class="col-md-6 mb-4">
-                <div class="p-4">
-                    <div class="mb-3">
-                        <h1>{{ pet.name }}</h1>
-                        <h4>{{ pet.scientificName }}</h4>
-                        <span>£{{ pet.price }}</span>
-                        <p>{{ pet.description }}</p>
+                <div class="col-md-6 mb-4">
+                    <div class="p-4">
+                        <div class="mb-3">
+                            {% if pet.is_new %}
+                                <h6><span class="badge badge-pill badge-warning">New</span></h6>
+                            {% endif %}
+                            <h1>{{ pet.name }}</h1>
+                            <h5 class="text-primary">{{ pet.scientificName }}</h5>
+                            <p>{{ pet.description }}</p>
+                            <h4>£{{ pet.price }}</h4>
 
-                        {% comment %} <form class="d-flex justify-content-left">
-                          <!-- Default input -->
-                          <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">
-                          <button class="btn btn-primary btn-md my-0 p" type="submit">
-                            Add to cart
-                            <i class="fas fa-shopping-cart ml-1"></i>
-                          </button>
+                            {% comment %} <form class="d-flex justify-content-left">
+                              <!-- Default input -->
+                              <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">
+                              <button class="btn btn-primary btn-md my-0 p" type="submit">
+                                Add to cart
+                                <i class="fas fa-shopping-cart ml-1"></i>
+                              </button>
 
-                        </form> {% endcomment %}
-                        <a href="" class="btn btn-primary btn-md my-0 p">
-                          Add to Basket
-                          <i class="fas fa-shopping-cart ml-1"></i>
-                        </a>
-                        <a href="" class="btn btn-secondary btn-md my-0 p">
-                          Watchlist
-                        </a>
+                            </form> {% endcomment %}
+                            <a href="" class="btn btn-primary btn-md my-0 p">
+                              Add to Basket
+                              <i class="fas fa-shopping-cart ml-1"></i>
+                            </a>
+                            <a href="" class="btn btn-secondary btn-md my-0 p">
+                              Watchlist
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div>
-                <h2>Care Details</h2>
-                <p>{{ pet.careDetails }}</p>
+            <hr />
+            <div class="row d-flex justify-content-left wow fadeIn">
+                <div class="col-md-6 text-left">
+                    <h2>Care Details</h2>
+                    <p>{{ pet.careDetails }}</p>
+                </div>
             </div>
-        </div>
         </div>
     {% endif %}
 {% endblock %}
