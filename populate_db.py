@@ -7,6 +7,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'exotic_bay_project.settings')
 django.setup()
 
 from exotic_bay.models import Pet
+import datetime
 
 
 def populate():
@@ -20,6 +21,7 @@ def populate():
                  'careDetails': 'This spider needs to be kept in a terrestial style plastic faunarium or suitable '
                                 'glass enclosure. ',
                  'orders': 0,
+                 'dateAdded': datetime.date(2020, 2, 4),
                  'image': 'pet_images/mexican-red-knee.jpg'}}
 
     # If you want to add more categories or pages,
@@ -29,14 +31,15 @@ def populate():
     # and then adds all the associated pages for that category.
     for pet, pet_data in pets.items():
         p = add_pet(pet, pet_data['scientificName'], pet_data['price'], pet_data['type'], pet_data['stock'],
-                    pet_data['description'], pet_data['careDetails'], pet_data['orders'], pet_data['image'])
+                    pet_data['description'], pet_data['careDetails'], pet_data['dateAdded'], pet_data['orders'],
+                    pet_data['image'])
 
     # Print out the categories we have added.
     for p in Pet.objects.all():
         print(f'- {p}')
 
 
-def add_pet(name, scientificName, price, petType, stock, description, careDetails, orders=0, image=None):
+def add_pet(name, scientificName, price, petType, stock, description, careDetails, dateAdded, orders=0, image=None):
     pet = Pet.objects.get_or_create(name=name)[0]
     pet.scientificName = scientificName
     pet.price = price
@@ -45,6 +48,7 @@ def add_pet(name, scientificName, price, petType, stock, description, careDetail
     pet.description = description
     pet.careDetails = careDetails
     pet.orders = orders
+    pet.date_added = dateAdded
     pet.image = image
     pet.save()
     return pet
