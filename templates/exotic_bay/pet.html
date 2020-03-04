@@ -9,17 +9,20 @@
     {% endif %}
 {% endblock %}
 
+{% block custom_style %}
+{% endblock %}
+
 {% block body_block %}
     {% if pet %}
 
         <div>
             <nav aria-label="breadcrumb">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{% url 'exotic_bay:home' %}">Home</a></li>
-                  <li class="breadcrumb-item"><a href="#">Pets</a></li>
-                <li class="breadcrumb-item"><a href="#">{{ pet.type }}</a></li>
-                <li class="breadcrumb-item active" aria-current="{{ pet.slug }}">{{ pet.name }}</li>
-              </ol>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'exotic_bay:home' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Pets</a></li>
+                    <li class="breadcrumb-item"><a href="#">{{ pet.type }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="{{ pet.slug }}">{{ pet.name }}</li>
+                </ol>
             </nav>
         </div>
 
@@ -27,7 +30,7 @@
             <div class="row wow fadeIn">
                 <div class="col-md-6 mb-4">
                     {% if image %}
-                        <img class="img-fluid img-thumbnail" src="{{ pet.image.url }}" />
+                        <img class="img-fluid img-thumbnail" src="{{ pet.image.url }}"/>
                     {% endif %}
                 </div>
 
@@ -35,34 +38,31 @@
                     <div class="p-4">
                         <div class="mb-3">
                             {% if pet.is_new %}
-                                <h6><span class="badge badge-pill badge-warning">New</span></h6>
+                                <h5><span class="badge badge-pill badge-warning">New</span></h5>
                             {% endif %}
                             <h1>{{ pet.name }}</h1>
                             <h5 class="text-primary">{{ pet.scientificName }}</h5>
                             <p>{{ pet.description }}</p>
-                            <h4>£{{ pet.price }}</h4>
-
-                            {% comment %} <form class="d-flex justify-content-left">
-                              <!-- Default input -->
-                              <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">
-                              <button class="btn btn-primary btn-md my-0 p" type="submit">
-                                Add to cart
-                                <i class="fas fa-shopping-cart ml-1"></i>
-                              </button>
-
-                            </form> {% endcomment %}
-                            <a href="" class="btn btn-primary btn-md my-0 p">
-                              Add to Basket
-                              <i class="fas fa-shopping-cart ml-1"></i>
-                            </a>
-                            <a href="" class="btn btn-secondary btn-md my-0 p">
-                              Watchlist
-                            </a>
+                            <hr/>
+                            <form>
+                                <div class="form-row align-items-center">
+                                    <h4 class="col-sm-3 my-1">£{{ pet.price }}</h4>
+                                    <h5 class="col-auto my-1">Qty: </h5>
+                                    <input class="form-control col-auto my-1" style="width: 15%" type="number" value="1" min="1"/>
+                                </div>
+                                <br />
+                                <button type="submit" class="btn btn-primary btn-md my-1 p">
+                                    Add to Basket
+                                </button>
+                                <button type="submit" class="btn btn-secondary btn-md my-1 p">
+                                    Add to Watchlist
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-            <hr />
+            <hr/>
             <div class="row d-flex justify-content-left wow fadeIn">
                 <div class="col-md-6 text-left">
                     <h2>Care Details</h2>
