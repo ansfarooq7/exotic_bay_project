@@ -11,5 +11,5 @@ urlpatterns = [
     path('login/', views.user_login, name='login'),
     path('logout/', views.user_logout, name='logout'),
     path('success/', views.success, name='success'),
-    path('<slug:type_slug>/<slug:pet_name_slug>/', views.pet_details, name='pet_details'),
+    path('<type>/<slug:pet_name_slug>/', views.pet_details, name='pet_details'),
 ]

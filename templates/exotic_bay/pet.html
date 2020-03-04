@@ -11,12 +11,21 @@
 
 {% block body_block %}
     {% if pet %}
+
+        <div>
+
+        </div>
+
         <div>
             <h1>{{ pet.name }}</h1>
-            <h3>{{ pet.scientificName }}</h3>
+            <h4>{{ pet.scientificName }}</h4>
         </div>
-        <div>
-            <img src="{% static 'images/{{ pet.slug }}.jpg' %}"/>
+        <div class="w-75 p-3">
+        <div class="w-50 p-3">
+            {% if image %}
+                <img class="img-fluid img-thumbnail" src="{{ pet.image.url }}" />
+            {% endif %}
+        </div>
         </div>
         <div>
             <p>{{ pet.description }}</p>

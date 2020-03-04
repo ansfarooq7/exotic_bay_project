@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
 from django.shortcuts import reverse
+from django.template.defaultfilters import slugify
 from django_countries.fields import CountryField
 
 CATEGORY_CHOICES = (
@@ -32,7 +33,7 @@ class Pet(models.Model):
     NAME_MAX_LENGTH = 30
     name = models.CharField(max_length=NAME_MAX_LENGTH, unique=True)
     scientificName = models.CharField(max_length=100)
-    price = models.FloatField()
+    price = models.FloatField(null=True)
     type = models.CharField(choices=CATEGORY_CHOICES, max_length=2)
     stock = models.IntegerField(default=0)
     description = models.TextField()
@@ -43,6 +44,10 @@ class Pet(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Pet, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse("exotic_bay:type:pet", kwargs={
