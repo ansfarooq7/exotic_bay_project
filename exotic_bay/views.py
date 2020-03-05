@@ -164,15 +164,16 @@ def add_to_basket(request, slug):
             pet_order.quantity += 1
             pet_order.save()
             messages.info(request, "This pet's quantity was updated.")
-            return redirect("exotic-bay:basket")
+            return redirect("exotic_bay:basket")
         else:
             order.items.add(pet_order)
             messages.info(request, "This pet was added to your basket.")
-            return redirect("exotic-bay:basket")
+            return redirect("exotic_bay:basket")
     else:
         ordered_date = timezone.now()
         order = Basket.objects.create(
             user=request.user, ordered_date=ordered_date)
         order.items.add(pet_order)
         messages.info(request, "This pet was added to your basket.")
-        return redirect("exotic-bay:basket")
+        return redirect("exotic_bay:basket")
+
