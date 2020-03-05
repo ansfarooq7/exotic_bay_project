@@ -59,6 +59,11 @@
 					<div class="position-absolute top-right">
 						<button id="logoutButton" type="button" class="btn btn-primary btn-sm">Logout</button>
 					</div>
+					<script type="text/javascript">
+						document.getElementById("logoutButton").onclick = function() {
+							location.href = "{% url 'exotic_bay:logout' %}";
+						};
+					</script>
 					{% else %}
 					<!-- Login/Sign-up Buttons -->
 					<div class="position-absolute top-right">
@@ -76,9 +81,6 @@
 						};
 						document.getElementById("contactButton").onclick = function() {
 							location.href = "{% url 'exotic_bay:contact' %}";
-						};
-						document.getElementById("logoutButton").onclick = function() {
-							location.href = "{% url 'exotic_bay:logout' %}";
 						};
 					</script>
 					{% endif %}
