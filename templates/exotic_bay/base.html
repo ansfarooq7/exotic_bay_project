@@ -25,13 +25,27 @@
             right: 5%;
 		   display:inline-block;
         }
-		#searchbar{
+	   #searchbar{
 			position:absolute;
 			display:inline-block;
 			left:50%;
 			margin-left: -400px;
 			width:50%;
 		}
+	   #login_form{
+		   padding-left:50px;
+    	}
+	   #user_form{
+		   padding-top:10px;
+		   padding-left:50px;
+    	}
+	   @media (min-width: 992px){
+		   .navbar li {
+			   margin-left : 6em;
+			   margin-right : 6em;
+    		}
+	    }
+
     </style>
 
 	</head>
@@ -40,7 +54,7 @@
 		<!-- Navigation Bar -->
             <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
                <a class="navbar-brand" href="#">Exotic Bay</a>
-                <ul class="navbar-nav">
+                <ul class="navbar-nav nav-fill w-100" >
 					{% if user.is_authenticated %}
 					<div class="position-absolute top-right">
 						<button id="logoutButton" type="button" class="btn btn-primary btn-sm">Logout</button>
@@ -78,7 +92,7 @@
 					</div>
             </nav>
 			<nav class="navbar navbar-expand-sm bg-light navbar-light" style="background-color: #e3f2fd;">
-    			<ul class="navbar-nav">
+    			<ul class="navbar-nav mx-auto">
 					<li class="nav-item">
 						<a class="nav-link" href="{% url 'exotic_bay:home' %}">Home</a>
 					</li>
