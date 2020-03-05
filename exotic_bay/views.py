@@ -134,3 +134,10 @@ def contact_us(request):
 
 def success(request):
     return HttpResponse('Success! Thank you for your message.')
+
+def basket(request):
+    context_dict = {}
+
+    response = render(request, 'exotic_bay/basket.html', context= context_dict)
+
+    return response
