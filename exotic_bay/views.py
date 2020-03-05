@@ -1,11 +1,14 @@
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from exotic_bay.forms import UserForm, ContactForm
 from django.core.mail import send_mail, BadHeaderError
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import redirect, render
+from django.http import HttpResponse
+from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse
-from exotic_bay.models import Pet
+from django.utils import timezone
+
+from exotic_bay.forms import UserForm, ContactForm
+from exotic_bay.models import Pet, PetOrder, Basket
 
 
 def home(request):
@@ -52,7 +55,7 @@ def pet_details(request, type, pet_name_slug):
     # Go render the response and return it to the client.
     return render(request, 'exotic_bay/pet.html', context=context_dict)
 
-  
+
 def about(request):
     context_dict = {}
 
@@ -132,12 +135,44 @@ def contact_us(request):
             return redirect('exotic_bay:success')
     return render(request, 'exotic_bay/contact_us.html', {'form': form})
 
+
 def success(request):
     return HttpResponse('Success! Thank you for your message.')
+
 
 def basket(request):
     context_dict = {}
 
-    response = render(request, 'exotic_bay/basket.html', context= context_dict)
+    response = render(request, 'exotic_bay/basket.html', context=context_dict)
 
     return response
+
+
+@login_required
+def add_to_basket(request, slug):
+    pet = get_object_or_404(Pet, slug=slug)
+    pet_order, created = PetOrder.objects.get_or_create(
+        pet=pet,
+        user=request.user,
+        ordered=False
+    )
+    order_qs = Basket.objects.filter(user=request.user, ordered=False)
+    if order_qs.exists():
+        order = order_qs[0]
+        # check if the order item is in the order
+        if order.items.filter(pet__slug=pet.slug).exists():
+            pet_order.quantity += 1
+            pet_order.save()
+            messages.info(request, "This pet's quantity was updated.")
+            return redirect("exotic-bay:basket")
+        else:
+            order.items.add(pet_order)
+            messages.info(request, "This pet was added to your basket.")
+            return redirect("exotic-bay:basket")
+    else:
+        ordered_date = timezone.now()
+        order = Basket.objects.create(
+            user=request.user, ordered_date=ordered_date)
+        order.items.add(pet_order)
+        messages.info(request, "This pet was added to your basket.")
+        return redirect("exotic-bay:basket")
