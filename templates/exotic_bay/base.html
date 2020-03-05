@@ -45,6 +45,13 @@
 			   margin-right : 6em;
     		}
 	    }
+	   .logo{
+		   height:50px;
+		}
+	   .navbar-brand{
+		   margin:0;
+		   padding:0;
+	   }
 
     </style>
 
@@ -53,7 +60,9 @@
 	<header>
 		<!-- Navigation Bar -->
             <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-               <a class="navbar-brand" href="#">Exotic Bay</a>
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#"><img src="{% static 'images/logo_size.png' %}" class="img-responsive logo" alt="exotic-bay logo"/></a>
+				</div>
                 <ul class="navbar-nav nav-fill w-100" >
 					{% if user.is_authenticated %}
 					<div class="position-absolute top-right">
