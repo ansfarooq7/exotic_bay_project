@@ -22,14 +22,14 @@
                     <td>{{ pet.pet.name }}</td>
                     <td>{{ pet.pet.price }}</td>
                     <td>
-                        <a href="{% url 'core:remove-single-item-from-cart' order_item.item.slug %}"><i
+                        <a href="{% url 'exotic_bay:remove-single-item-from-cart' order_item.item.slug %}"><i
                                 class="fas fa-minus mr-2"></i></a>
                         {{ pet.quantity }}
-                        <a href="{% url 'core:add-to-basket' pet.item.slug %}"><i class="fas fa-plus ml-2"></i></a>
+                        <a href="{% url 'exotic_bay:add-to-basket' pet.item.slug %}"><i class="fas fa-plus ml-2"></i></a>
                     </td>
                     <td>
 
-                        <a href="{% url 'core:remove-from-basket' pet.item.slug %}" style='color: red;'>
+                        <a href="{% url 'exotic_bay:remove-from-basket' pet.item.slug %}" style='color: red;'>
                             <i class="fas fa-trash float-right"></i>
                         </a>
                     </td>
