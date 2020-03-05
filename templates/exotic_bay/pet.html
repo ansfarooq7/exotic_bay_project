@@ -44,20 +44,19 @@
                             <h5 class="text-primary">{{ pet.scientificName }}</h5>
                             <p>{{ pet.description }}</p>
                             <hr/>
-                            <form>
                                 <div class="form-row align-items-center">
                                     <h4 class="col-sm-3 my-1">£{{ pet.price }}</h4>
                                     <h5 class="col-auto my-1">Qty: </h5>
                                     <input class="form-control col-auto my-1" style="width: 15%" type="number" value="1" min="1"/>
                                 </div>
                                 <br />
-                                <button type="submit" class="btn btn-primary btn-md my-1 p">
-                                    Add to Basket
-                                </button>
+                                <a href="{{ object.get_add_to_basket_url }}" class="btn btn-primary btn-md my-1 p">
+                                  Add to Basket
+                                  <i class="fas fa-shopping-cart ml-1"></i>
+                                </a>
                                 <button type="submit" class="btn btn-secondary btn-md my-1 p">
                                     Add to Watchlist
                                 </button>
-                            </form>
                         </div>
                     </div>
                 </div>
