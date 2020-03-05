@@ -75,7 +75,7 @@ def register(request):
         if user_form.is_valid():
             user = user_form.save()
 
-            user.set_passsword(user.password)
+            user.set_password(user.password)
             user.save()
 
             profile.user = user
