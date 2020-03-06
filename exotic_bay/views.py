@@ -160,6 +160,14 @@ def basket(request):
 
     return response
 
+def watchlist(request):
+    context_dict = {}
+
+    # Obtain our Response object early so we can add cookie information.
+    response = render(request, 'exotic_bay/watchlist.html', context=context_dict)
+
+    # Render the response and send it back.
+    return response
 
 @login_required
 def add_to_basket(request, slug):
