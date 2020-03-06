@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django_countries',
     'crispy_forms',
     # 'exotic_bay.apps.ExoticBayConfig',
+    'register.apps.RegisterConfig',
     'exotic_bay',
 ]
 
@@ -142,3 +143,4 @@ REGISTRATION_AUTO_LOGIN = True
 LOGIN_REDIRECT_URL = 'exotic_bay:home'
 LOGIN_URL = 'exotic_bay:login'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+CRISPY_TEMPLATE_PACK="bootstrap4"
