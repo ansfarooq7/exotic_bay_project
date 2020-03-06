@@ -2,138 +2,146 @@
 {% load staticfiles %}
 
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<link href="https://getbootstrap.com/docs/4.2/dist/css/bootstrap.min.css" rel="stylesheet">
-			<!-- Custom styles for this template -->
-		<link href="https://getbootstrap.com/docs/4.2/examples/dashboard/dashboard.css" rel="stylesheet">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-        {% block custom_style %}{% endblock %}
-		<title>
-			Exotic-Bay -
-			{% block title_block %}
-				Shop now!
-			{% endblock %}
-		</title>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <link href="https://getbootstrap.com/docs/4.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="https://getbootstrap.com/docs/4.2/examples/dashboard/dashboard.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    {% block custom_style %}{% endblock %}
+    <title>
+        Exotic-Bay -
+        {% block title_block %}
+        Shop now!
+        {% endblock %}
+    </title>
 
-		<style type="text/css">
-       .top-right {
+    <style type="text/css">
+        .top-right {
             top: 25%;
             right: 5%;
-		   display:inline-block;
+            display: inline-block;
         }
-	   #searchbar{
-			position:absolute;
-			display:inline-block;
-			left:50%;
-			margin-left: -400px;
-			width:50%;
-		}
-	   #login_form{
-		   padding-left:50px;
-    	}
-	   #user_form{
-		   padding-top:10px;
-		   padding-left:50px;
-    	}
-	   @media (min-width: 992px){
-		   .navbar li {
-			   margin-left : 6em;
-			   margin-right : 6em;
-    		}
-	    }
-	   .logo{
-		   height:50px;
-		}
-	   .navbar-brand{
-		   margin:0;
-		   padding:0;
-	   }
+
+        #searchbar {
+            position: absolute;
+            display: inline-block;
+            left: 50%;
+            margin-left: -400px;
+            width: 50%;
+        }
+
+        #login_form {
+            padding-left: 50px;
+        }
+
+        #user_form {
+            padding-top: 10px;
+            padding-left: 50px;
+        }
+
+        @media (min-width: 992px) {
+            .navbar li {
+                margin-left: 6em;
+                margin-right: 6em;
+            }
+        }
+
+        .logo {
+            height: 50px;
+        }
+
+        .navbar-brand {
+            margin: 0;
+            padding: 0;
+        }
 
     </style>
 
-	</head>
-	<body>
-	<header>
-		<!-- Navigation Bar -->
-            <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="#"><img src="{% static 'images/logo_size.png' %}" class="img-responsive logo" alt="exotic-bay logo"/></a>
-				</div>
-                <ul class="navbar-nav nav-fill w-100" >
-					{% if user.is_authenticated %}
-					<div class="position-absolute top-right">
-						<button id="logoutButton" type="button" class="btn btn-primary btn-sm">Logout</button>
-					</div>
-					<script type="text/javascript">
-						document.getElementById("logoutButton").onclick = function() {
-							location.href = "{% url 'exotic_bay:logout' %}";
-						};
-					</script>
-					{% else %}
-					<!-- Login/Sign-up Buttons -->
-					<div class="position-absolute top-right">
-						<button id="loginButton" type="button" class="btn btn-success btn-sm">Login</button>
-						<button id="registerButton" type="button" class="btn btn-outline-secondary btn-sm">Sign Up</button>
-						<button id="contactButton" type="button" class="btn btn-outline-secondary btn-sm">Contact Us</button>
-					</div>
-					<!-- Script to make buttons act as hyperlinks -->
-					<script type="text/javascript">
-						document.getElementById("loginButton").onclick = function () {
-							location.href = "{% url 'exotic_bay:login' %}";
-						};
-						document.getElementById("registerButton").onclick = function() {
-							location.href = "{% url 'exotic_bay:register' %}";
-						};
-						document.getElementById("contactButton").onclick = function() {
-							location.href = "{% url 'exotic_bay:contact' %}";
-						};
-					</script>
-					{% endif %}
-                    </ul>
-					<!-- Search bar -->
-					<div id="searchbar">
-						<form class="form-inline d-flex justify-content-center md-form form-sm mt-0">
-  						<i class="fas fa-search" aria-hidden="true"></i>
-  						<input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search">
-						</form>
-					</div>
-            </nav>
-			<nav class="navbar navbar-expand-sm bg-light navbar-light" style="background-color: #e3f2fd;">
-    			<ul class="navbar-nav mx-auto">
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'exotic_bay:home' %}">Home</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'exotic_bay:about' %}">About</a>
-					</li>
-					<!-- Pets Dropdown menu-->
-					<li class="nav-item dropdown">
-      					<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Pets</a>
-      					<div class="dropdown-menu">
-							<a class="dropdown-item" href="#">Reptiles</a>
-							<a class="dropdown-item" href="#">Canidae</a>
-							<a class="dropdown-item" href="#">Amphibians</a>
-							<a class="dropdown-item" href="#">Inverts</a>
-							<a class="dropdown-item" href="#">Marsupial</a>
-      					</div>
-  					  </li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Watchlist</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Basket</a>
-					</li>
-  					</ul>
-			</nav>
-        </header>
-		<div>
-			{% block body_block %}
-			{% endblock %}
-		</div>
-		<hr />
-	</body>
+</head>
+<body>
+<header>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#"><img alt="exotic-bay logo" class="img-responsive logo"
+                                                  src="{% static 'images/logo_size.png' %}"/></a>
+        </div>
+        <ul class="navbar-nav nav-fill w-100">
+            {% if user.is_authenticated %}
+            <div class="position-absolute top-right">
+                <button class="btn btn-primary btn-sm" id="logoutButton" type="button">Logout</button>
+            </div>
+            <script type="text/javascript">
+                document.getElementById("logoutButton").onclick = function () {
+                    location.href = "{% url 'exotic_bay:logout' %}";
+                };
+            </script>
+            {% else %}
+            <!-- Login/Sign-up Buttons -->
+            <div class="position-absolute top-right">
+                <button class="btn btn-success btn-sm" id="loginButton" type="button">Login</button>
+                <button class="btn btn-outline-secondary btn-sm" id="registerButton" type="button">Sign Up</button>
+                <button class="btn btn-outline-secondary btn-sm" id="contactButton" type="button">Contact Us</button>
+            </div>
+            <!-- Script to make buttons act as hyperlinks -->
+            <script type="text/javascript">
+                document.getElementById("loginButton").onclick = function () {
+                    location.href = "{% url 'exotic_bay:login' %}";
+                };
+                document.getElementById("registerButton").onclick = function () {
+                    location.href = "{% url 'exotic_bay:register' %}";
+                };
+                document.getElementById("contactButton").onclick = function () {
+                    location.href = "{% url 'exotic_bay:contact' %}";
+                };
+            </script>
+            {% endif %}
+        </ul>
+        <!-- Search bar -->
+        <div id="searchbar">
+            <form class="form-inline d-flex justify-content-center md-form form-sm mt-0">
+                <i aria-hidden="true" class="fas fa-search"></i>
+                <input aria-label="Search" class="form-control form-control-sm ml-3 w-75" placeholder="Search"
+                       type="text">
+            </form>
+        </div>
+    </nav>
+    <nav class="navbar navbar-expand-sm bg-light navbar-light" style="background-color: #e3f2fd;">
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'exotic_bay:home' %}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'exotic_bay:about' %}">About</a>
+            </li>
+            <!-- Pets Dropdown menu-->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="navbardrop">Pets</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Reptiles</a>
+                    <a class="dropdown-item" href="#">Canidae</a>
+                    <a class="dropdown-item" href="#">Amphibians</a>
+                    <a class="dropdown-item" href="#">Inverts</a>
+                    <a class="dropdown-item" href="#">Marsupial</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Watchlist</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'exotic_bay:basket' %}">Basket</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div>
+    {% block body_block %}
+    {% endblock %}
+</div>
+<hr/>
+</body>
 </html>
