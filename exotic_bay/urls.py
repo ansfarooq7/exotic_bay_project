@@ -14,4 +14,5 @@ urlpatterns = [
     path('<type>/<slug:pet_name_slug>/', views.pet_details, name='pet_details'),
     path('basket/', views.basket,name='basket'),
     path('add-to-basket/<slug>/', views.add_to_basket, name='add-to-basket'),
+    path('watchlist/', views.watchlist, name='watchlist'),
 ]
