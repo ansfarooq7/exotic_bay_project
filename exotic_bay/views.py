@@ -7,7 +7,8 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse
 from django.utils import timezone
 
-from exotic_bay.forms import UserForm, ContactForm
+from exotic_bay.forms import ContactForm
+from exotic_bay.forms import RegisterForm
 from exotic_bay.models import Pet, PetOrder, Basket
 
 
@@ -66,29 +67,41 @@ def about(request):
     return response
 
 
-def register(request):
-    registered = False
+# def register(request):
+#     registered = False
+#
+#     if request.method == 'POST':
+#         user_form = UserForm(request.POST)
+#
+#         if user_form.is_valid():
+#             user = user_form.save()
+#
+#             user.set_password(user.password)
+#             user.save()
+#
+#             profile.user = user
+#
+#             profile.save()
+#
+#             registered = True
+#         else:
+#             print(user_form.errors)
+#     else:
+#         user_form = UserForm()
+#
+#     return render(request, 'exotic_bay/register.html', context={'user_form': user_form, 'registered': registered})
 
-    if request.method == 'POST':
-        user_form = UserForm(request.POST)
+def register(response):
+    if response.method == "POST":
+        form = RegisterForm(response.POST)
+        if form.is_valid():
+            form.save()
 
-        if user_form.is_valid():
-            user = user_form.save()
-
-            user.set_password(user.password)
-            user.save()
-
-            profile.user = user
-
-            profile.save()
-
-            registered = True
-        else:
-            print(user_form.errors)
+        return redirect(reverse('exotic_bay:home'))
     else:
-        user_form = UserForm()
+        form = RegisterForm()
 
-    return render(request, 'exotic_bay/register.html', context={'user_form': user_form, 'registered': registered})
+    return render(response, "exotic_bay/register.html", {"form": form})
 
 
 def user_login(request):
@@ -176,4 +189,3 @@ def add_to_basket(request, slug):
         order.items.add(pet_order)
         messages.info(request, "This pet was added to your basket.")
         return redirect("exotic_bay:basket")
-
