@@ -1,4 +1,5 @@
 import datetime
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -8,15 +9,15 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse
 from django.utils import timezone
 
-from exotic_bay.forms import ContactForm
-from exotic_bay.forms import RegisterForm
+from exotic_bay.forms import ContactForm, RegisterForm, BasketAddPetForm
 from exotic_bay.models import Pet, PetOrder, Basket
 
 
 def home(request):
     context_dict = {}
     context_dict['pets'] = Pet.objects.all()
-    context_dict['recently_added'] = Pet.objects.filter(date_added__gte=datetime.date.today() - datetime.timedelta(days=1))
+    context_dict['recently_added'] = Pet.objects.filter(
+        date_added__gte=datetime.date.today() - datetime.timedelta(days=1))
 
     # Obtain our Response object early so we can add cookie information.
     response = render(request, 'exotic_bay/home.html', context=context_dict)
@@ -44,6 +45,7 @@ def pet_details(request, type, pet_name_slug):
         context_dict['description'] = pet.description
         context_dict['careDetails'] = pet.careDetails
         context_dict['image'] = pet.image
+        context_dict['form'] = BasketAddPetForm
 
         # We also add the pet object from
         # the database to the context dictionary.
@@ -163,6 +165,7 @@ def basket(request):
 
     return response
 
+
 def watchlist(request):
     context_dict = {}
 
@@ -172,31 +175,37 @@ def watchlist(request):
     # Render the response and send it back.
     return response
 
+
 @login_required
 def add_to_basket(request, slug):
     pet = get_object_or_404(Pet, slug=slug)
-    pet_order, created = PetOrder.objects.get_or_create(
-        pet=pet,
-        user=request.user,
-        ordered=False
-    )
-    order_qs = Basket.objects.filter(user=request.user, ordered=False)
-    if order_qs.exists():
-        order = order_qs[0]
-        # check if the order item is in the order
-        if order.items.filter(pet__slug=pet.slug).exists():
-            pet_order.quantity += 1
-            pet_order.save()
-            messages.info(request, "This pet's quantity was updated.")
-            return redirect("exotic_bay:basket")
+    form = BasketAddPetForm(request.POST)
+    if form.is_valid():
+        cd = form.cleaned_data
+        quantity = cd['quantity']
+        pet_order, created = PetOrder.objects.get_or_create(
+            pet=pet,
+            user=request.user,
+            ordered=False
+        )
+        basket_qs = Basket.objects.filter(user=request.user, ordered=False)
+        if basket_qs.exists():
+            basket = basket_qs[0]
+            # check if the pet order is in the basket
+            if basket.pets.filter(pet__slug=pet.slug).exists():
+                pet_order.quantity += quantity
+                pet_order.save()
+                messages.info(request, "This pet's quantity was updated.")
+                return redirect("exotic_bay:basket")
+            else:
+                basket.pets.add(pet_order)
+                messages.info(request, "This pet was added to your basket.")
+                return redirect("exotic_bay:basket")
         else:
-            order.items.add(pet_order)
+            ordered_date = timezone.now()
+            basket = Basket.objects.create(
+                user=request.user, ordered_date=ordered_date)
+            basket.pets.add(pet_order)
             messages.info(request, "This pet was added to your basket.")
             return redirect("exotic_bay:basket")
-    else:
-        ordered_date = timezone.now()
-        order = Basket.objects.create(
-            user=request.user, ordered_date=ordered_date)
-        order.items.add(pet_order)
-        messages.info(request, "This pet was added to your basket.")
-        return redirect("exotic_bay:basket")
+    return redirect('exotic_bay:basket')

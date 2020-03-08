@@ -3,6 +3,12 @@ from django.contrib.auth.models import User
 from exotic_bay.models import UserProfile
 from django.contrib.auth.forms import UserCreationForm
 
+
+class BasketAddPetForm(forms.Form):
+    quantity = forms.IntegerField()
+    update = forms.BooleanField(required=False, initial=False, widget=forms.HiddenInput)
+
+
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
 
@@ -10,10 +16,12 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ('username', 'email', 'password',)
 
+
 class ContactForm(forms.Form):
     from_email = forms.EmailField(required=True)
     subject = forms.CharField(required=True)
     message = forms.CharField(widget=forms.Textarea, required=True)
+
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField()
