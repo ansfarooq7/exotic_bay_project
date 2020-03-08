@@ -17,10 +17,15 @@ Home
         padding-bottom: 20px;
     }
 
-
     .card_header {
         padding-top: 20px;
         padding-left: 20px;
+    }
+
+    .added_items_empty {
+        padding-top: 100px;
+        padding-bottom: 100px;
+        text-align: center;
     }
 
 </style>
@@ -47,7 +52,6 @@ Home
             </div>
             {% endfor %}
         </div>
-
     </div>
 </div>
 
@@ -72,6 +76,10 @@ Home
                     </div>
                 </div>
             </div>
+        </div>
+        {% else %}
+        <div class="added_items_empty">
+            <h3>There are no recently added items</h3>
         </div>
         {% endif %}
         {% endfor %}
