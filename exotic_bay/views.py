@@ -1,3 +1,4 @@
+import datetime
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -13,9 +14,9 @@ from exotic_bay.models import Pet, PetOrder, Basket
 
 
 def home(request):
-    context_dict = {
-        'pets': Pet.objects.all()
-    }
+    context_dict = {}
+    context_dict['pets'] = Pet.objects.all()
+    context_dict['recently_added'] = Pet.objects.filter(date_added__gte=datetime.date.today() - datetime.timedelta(days=1))
 
     # Obtain our Response object early so we can add cookie information.
     response = render(request, 'exotic_bay/home.html', context=context_dict)

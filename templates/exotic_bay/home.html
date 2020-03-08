@@ -61,9 +61,9 @@ Home
         <div class="card_header">
             <h4> Recently Added Pets</h4>
         </div>
-        {% for pet in pets %}
-        {% if pet.is_new %}
         <div class="row">
+            {% if recently_added.exists %}
+            {% for pet in recently_added %}
             <div class="col-lg-3 col-md-6 mb-3">
                 <div class="card h-100">
                     <a href="#"><img alt="" class="card-img-top" src="{{ pet.image.url }}"></a>
@@ -76,14 +76,14 @@ Home
                     </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
         {% else %}
-        <div class="added_items_empty">
-            <h3>There are no recently added items</h3>
-        </div>
-        {% endif %}
-        {% endfor %}
     </div>
+    <div class="added_items_empty">
+        <h3>There are no recently added items</h3>
+    </div>
+    {% endif %}
 </div>
 
 {% endblock %}
