@@ -57,11 +57,6 @@ class Pet(models.Model):
             'slug': self.slug
         })
 
-    def get_add_to_basket_url(self):
-        return reverse("exotic_bay:add-to-basket", kwargs={
-            'slug': self.slug
-        })
-
     def get_remove_from_basket_url(self):
         return reverse("exotic_bay:remove-from-basket", kwargs={
             'slug': self.slug
@@ -85,7 +80,7 @@ class PetOrder(models.Model):
     quantity = models.IntegerField(default=1)
 
     def __str__(self):
-        return "{self.quantity} of {self.pet.name}"
+        return f"{self.quantity} of {self.pet.name}"
 
     def get_total_pet_price(self):
         return self.quantity * self.pet.price
@@ -122,7 +117,7 @@ class Basket(models.Model):
     '''
 
     def __str__(self):
-        return self.user.name
+        return self.user.username
 
     def get_total(self):
         total = 0
@@ -147,7 +142,7 @@ class Address(models.Model):
     default = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.user.name
+        return self.user.username
 
     class Meta:
         verbose_name_plural = 'Addresses'
