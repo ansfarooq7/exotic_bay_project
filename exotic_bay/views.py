@@ -13,7 +13,9 @@ from exotic_bay.models import Pet, PetOrder, Basket
 
 
 def home(request):
-    context_dict = {}
+    context_dict = {
+        'pets': Pet.objects.all()
+    }
 
     # Obtain our Response object early so we can add cookie information.
     response = render(request, 'exotic_bay/home.html', context=context_dict)
