@@ -99,12 +99,12 @@ def register(response):
         form = RegisterForm(response.POST)
         if form.is_valid():
             form.save()
-
-        return redirect(reverse('exotic_bay:home'))
+        else:
+            print(form.errors)
     else:
         form = RegisterForm()
 
-    return render(response, "exotic_bay/register.html", {"form": form})
+    return render(response, "exotic_bay/register.html", context={"form": form})
 
 
 def user_login(request):
