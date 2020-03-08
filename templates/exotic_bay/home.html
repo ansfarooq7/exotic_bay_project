@@ -31,8 +31,8 @@ Home
         <div class="card_header">
             <h4> Featured Pets</h4>
         </div>
-        {% for pet in pets %}
         <div class="row">
+            {% for pet in pets %}
             <div class="col-lg-3 col-md-6 mb-3">
                 <div class="card h-100">
                     <a href=""><img alt="" class="card-img-top" src="{{ pet.image.url }}"></a>
@@ -45,8 +45,9 @@ Home
                     </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
+
     </div>
 </div>
 
@@ -61,7 +62,7 @@ Home
         <div class="row">
             <div class="col-lg-3 col-md-6 mb-3">
                 <div class="card h-100">
-                    <a href="#"><img alt="" class="card-img-top" src="http://placehold.it/700x400"></a>
+                    <a href="#"><img alt="" class="card-img-top" src="{{ pet.image.url }}"></a>
                     <div class="card-body">
                         <h4 class="card-title">
                             <a href="{{pet.type}}/{{ pet.slug }}/">{{ pet.name }}</a>
