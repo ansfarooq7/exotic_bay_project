@@ -25,134 +25,56 @@ Home
 
 </style>
 
-<!-- Recently Added Card -->
-<div class="recently_added">
+<!-- Featured Card -->
+<div class="featured">
     <div class="card mb-6">
         <div class="card_header">
             <h4> Featured Pets</h4>
         </div>
+        {% for pet in pets %}
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-3">
+                <div class="card h-100">
+                    <a href=""><img alt="" class="card-img-top" src="{{ pet.image.url }}"></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href="{{pet.type}}/{{ pet.slug }}/">{{ pet.name }}</a>
+                        </h4>
+                        <h5>£{{ pet.price }}</h5>
+                        <p class="card-text">{{ pet.description }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Recently Added Card -->
+<div class="recently_added">
+    <div class="card mb-6">
+        <div class="card_header">
+            <h4> Recently Added Pets</h4>
+        </div>
+        {% for pet in pets %}
+        {% if pet.is_new %}
         <div class="row">
             <div class="col-lg-3 col-md-6 mb-3">
                 <div class="card h-100">
                     <a href="#"><img alt="" class="card-img-top" src="http://placehold.it/700x400"></a>
                     <div class="card-body">
                         <h4 class="card-title">
-                            <a href="#">Item One</a>
+                            <a href="{{pet.type}}/{{ pet.slug }}/">{{ pet.name }}</a>
                         </h4>
-                        <h5>$24.99</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam
-                            aspernatur!</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-3">
-                <div class="card h-100">
-                    <a href="#"><img alt="" class="card-img-top" src="http://placehold.it/700x400"></a>
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <a href="#">Item Two</a>
-                        </h4>
-                        <h5>$24.99</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam
-                            aspernatur! Lorem ipsum dolor sit amet.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-3">
-                <div class="card h-100">
-                    <a href="#"><img alt="" class="card-img-top" src="http://placehold.it/700x400"></a>
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <a href="#">Item Three</a>
-                        </h4>
-                        <h5>$24.99</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam
-                            aspernatur!</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-3">
-                <div class="card h-100">
-                    <a href="#"><img alt="" class="card-img-top" src="http://placehold.it/700x400"></a>
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <a href="#">Item Four</a>
-                        </h4>
-                        <h5>$24.99</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam
-                            aspernatur!</p>
+                        <h5>£{{ pet.price }}</h5>
+                        <p class="card-text">{{ pet.description }}</p>
                     </div>
                 </div>
             </div>
         </div>
+        {% endif %}
+        {% endfor %}
     </div>
+</div>
 
-    <!-- Recently Added Card -->
-    <div class="recently_added">
-        <div class="card mb-6">
-            <div class="card_header">
-                <h4> Recently Added Pets</h4>
-            </div>
-            <div class="row">
-                <div class="col-lg-3 col-md-6 mb-3">
-                    <div class="card h-100">
-                        <a href="#"><img alt="" class="card-img-top" src="http://placehold.it/700x400"></a>
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                <a href="#">Item One</a>
-                            </h4>
-                            <h5>$24.99</h5>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam
-                                aspernatur!</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 mb-3">
-                    <div class="card h-100">
-                        <a href="#"><img alt="" class="card-img-top" src="http://placehold.it/700x400"></a>
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                <a href="#">Item Two</a>
-                            </h4>
-                            <h5>$24.99</h5>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam
-                                aspernatur! Lorem ipsum dolor sit amet.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 mb-3">
-                    <div class="card h-100">
-                        <a href="#"><img alt="" class="card-img-top" src="http://placehold.it/700x400"></a>
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                <a href="#">Item Three</a>
-                            </h4>
-                            <h5>$24.99</h5>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam
-                                aspernatur!</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 mb-3">
-                    <div class="card h-100">
-                        <a href="#"><img alt="" class="card-img-top" src="http://placehold.it/700x400"></a>
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                <a href="#">Item Four</a>
-                            </h4>
-                            <h5>$24.99</h5>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam
-                                aspernatur!</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {% endblock %}
+{% endblock %}
