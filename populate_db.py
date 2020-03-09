@@ -1,6 +1,5 @@
-import os
-
 import django
+import os
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'exotic_bay_project.settings')
 
@@ -22,7 +21,21 @@ def populate():
                                 'glass enclosure. ',
                  'orders': 0,
                  'dateAdded': datetime.date(2020, 2, 4),
-                 'image': 'pet_images/mexican-red-knee.jpg'}}
+                 'image': 'pet_images/mexican-red-knee.jpg'},
+
+            'Panther Chameleon':
+                {'scientificName': 'Furcifer pardalis',
+                 'price': '40',
+                 'type': 'Reptiles',
+                 'stock': 10,
+                 'description': 'The Panther Chameleon, being one of the easiest species of Chameleon to own makes them a '
+                                'favourite among lizard owners.',
+                 'careDetails': 'This breed of Chameleon is incredibly territorial and usually should be housed '
+                                'individually in a mesh enclosure. ',
+                 'orders': 0,
+                 'dateAdded': datetime.date(2020, 9, 4),
+                 'image': 'pet_images/panther-chameleon.jpg'}
+            }
 
     # If you want to add more categories or pages,
     # add them to the dictionaries above.
