@@ -9,30 +9,36 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th scope="col">Pet</th>
-                        <th scope="col">Description</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Name</th>
+                        {#                        <th scope="col">Description</th>#}
                         <th scope="col">Quantity</th>
                         <th scope="col">Price</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {% for pet in object.pets.all %}
+                    {% for pet_order in basket.pets.all %}
                         <tr>
-                            <th scope="row">{{ forloop.counter }}</th>
-                            <td>{{ pet.pet.name }}</td>
-                            <td>{{ pet.pet.price }}</td>
+                            <td class="w-25">
+                                {% if pet_order.pet.image %}
+                                    <a href="{% url 'exotic_bay:pet_details' pet_order.pet.type pet_order.pet.slug %}">
+                                        <img class="img-fluid img-thumbnail" src="{{ pet_order.pet.image.url }}"/>
+                                    </a>
+                                {% endif %}
+                            </td>
+                            <td class="w-25 text-wrap">
+                                <p class="font-weight-bold">{{ pet_order.pet.name }}</p>
+                                {{ pet_order.pet.description }}
+                            </td>
                             <td>
-                                <a href="{% url 'exotic_bay:remove-single-item-from-cart' order_item.item.slug %}"><i
+                                <a href="{% url 'exotic-bay:remove-single-pet-from-basket' pet_order.pet.slug %}"><i
                                         class="fas fa-minus mr-2"></i></a>
-                                {{ pet.quantity }}
-                                <a href="{% url 'exotic_bay:add-to-basket' pet.item.slug %}"><i
+                                {{ pet_order.quantity }}
+                                <a href="{% url 'exotic_bay:add-single-pet-to-basket' pet_order.pet.slug %}"><i
                                         class="fas fa-plus ml-2"></i></a>
                             </td>
                             <td>
-
-                                <a href="{% url 'exotic_bay:remove-from-basket' pet.item.slug %}" style='color: red;'>
-                                    <i class="fas fa-trash float-right"></i>
-                                </a>
+                                £{{ pet_order.pet.price }}
                             </td>
                         </tr>
                     {% empty %}
@@ -103,7 +109,7 @@
 
                 </div>
                 <div class="cards">
-                    <div class="row">
+                    <div class="row justify-content-md-center">
                         <div class="col-lg-4 col-md-6 mb-3">
                             <div class="card h-100">
                                 <a href="#"><img alt="" class="card-img-top" src="http://placehold.it/700x400"></a>
