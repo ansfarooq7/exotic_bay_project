@@ -3,6 +3,7 @@ import datetime
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
@@ -159,11 +160,16 @@ def success(request):
 
 
 def basket(request):
-    context_dict = {}
-
-    response = render(request, 'exotic_bay/basket.html', context=context_dict)
-
-    return response
+    try:
+        basket = Basket.objects.get(user=request.user, ordered=False)
+        context_dict = {
+            'basket': basket
+        }
+        response = render(request, 'exotic_bay/basket.html', context=context_dict)
+        return response
+    except ObjectDoesNotExist:
+        messages.warning(request, "You do not have an active order")
+        return redirect("/")
 
 
 def watchlist(request):
@@ -209,3 +215,63 @@ def add_to_basket(request, slug):
             messages.info(request, "This pet was added to your basket.")
             return redirect("exotic_bay:basket")
     return redirect('exotic_bay:basket')
+
+@login_required
+def remove_single_pet_from_basket(request, slug):
+    pet = get_object_or_404(Pet, slug=slug)
+    basket_qs = Basket.objects.filter(
+        user=request.user,
+        ordered=False
+    )
+    if basket_qs.exists():
+        basket = basket_qs[0]
+        # check if the pet order is in the basket
+        if basket.pets.filter(pet__slug=pet.slug).exists():
+            pet_order = PetOrder.objects.filter(
+                pet=pet,
+                user=request.user,
+                ordered=False
+            )[0]
+            if pet_order.quantity > 1:
+                pet_order.quantity -= 1
+                pet_order.save()
+            else:
+                basket.pets.remove(pet_order)
+            messages.info(request, "This pet quantity was updated.")
+            return redirect("exotic_bay:basket")
+        else:
+            messages.info(request, "This pet was not in your basket")
+            return redirect("exotic_bay:pet_details", type=pet.type, slug=slug)
+    else:
+        messages.info(request, "You do not have an active order")
+        return redirect("exotic_bay:pet_details", type=pet.type, slug=slug)
+
+@login_required
+def add_single_pet_to_basket(request, slug):
+    pet = get_object_or_404(Pet, slug=slug)
+    basket_qs = Basket.objects.filter(
+        user=request.user,
+        ordered=False
+    )
+    if basket_qs.exists():
+        basket = basket_qs[0]
+        # check if the pet order is in the basket
+        if basket.pets.filter(pet__slug=pet.slug).exists():
+            pet_order = PetOrder.objects.filter(
+                pet=pet,
+                user=request.user,
+                ordered=False
+            )[0]
+            if pet_order.quantity > 0:
+                pet_order.quantity += 1
+                pet_order.save()
+            else:
+                basket.pets.add(pet_order)
+            messages.info(request, "This pet quantity was updated.")
+            return redirect("exotic_bay:basket")
+        else:
+            messages.info(request, "This pet was not in your basket")
+            return redirect("exotic_bay:pet_details", type=pet.type, slug=slug)
+    else:
+        messages.info(request, "You do not have an active order")
+        return redirect("exotic_bay:pet_details", type=pet.type, slug=slug)
