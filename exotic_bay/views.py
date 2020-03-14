@@ -156,7 +156,8 @@ def contact_us(request):
 
 
 def success(request):
-    return HttpResponse('Success! Thank you for your message.')
+    response = render(request, 'exotic_bay/success.html')
+    return response
 
 
 def basket(request):
@@ -216,6 +217,7 @@ def add_to_basket(request, slug):
             return redirect("exotic_bay:basket")
     return redirect('exotic_bay:basket')
 
+
 @login_required
 def remove_single_pet_from_basket(request, slug):
     pet = get_object_or_404(Pet, slug=slug)
@@ -245,6 +247,7 @@ def remove_single_pet_from_basket(request, slug):
     else:
         messages.info(request, "You do not have an active order")
         return redirect("exotic_bay:pet_details", type=pet.type, slug=slug)
+
 
 @login_required
 def add_single_pet_to_basket(request, slug):

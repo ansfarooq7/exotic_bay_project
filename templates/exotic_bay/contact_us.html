@@ -1,17 +1,26 @@
 {% extends 'exotic_bay/base.html' %}
 {% load staticfiles %}
+{% load crispy_forms_tags %}
 
 {% block title_block %}
-	Contact Us
+    Contact Us
 {% endblock %}
 
 {% block body_block %}
-	<h1>Contact Us</h1>
-	<form method="post">
-		{% csrf_token %}
-		{{ form.as_p }}
-		<div class="form-actions">
-		  <button type="submit">Send</button>
-		</div>
-	</form>
+    <div class="container">
+        <div class="row wow fadeIn">
+            <div class='col-6 offset-3 py-3 px-md-5'>
+                <div class="text-center">
+                    <h1 class="h1 mb-3 font-weight-normal">Contact Us</h1>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <div class="form-actions">
+                            <button class="btn btn-secondary" type="submit">Send</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
