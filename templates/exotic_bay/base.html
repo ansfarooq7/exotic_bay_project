@@ -11,6 +11,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/38291fd9fa.js" crossorigin="anonymous"></script>
     {% block custom_style %}{% endblock %}
     <title>
         Exotic-Bay -
@@ -77,7 +78,7 @@
             </div>
             <script type="text/javascript">
                 document.getElementById("logoutButton").onclick = function () {
-                    location.href = "{% url 'exotic_bay:logout' %}";
+                    location.href = "{% url 'account_logout' %}";
                 };
             </script>
             {% else %}
@@ -90,10 +91,10 @@
             <!-- Script to make buttons act as hyperlinks -->
             <script type="text/javascript">
                 document.getElementById("loginButton").onclick = function () {
-                    location.href = "{% url 'exotic_bay:login' %}";
+                    location.href = "{% url 'account_login' %}";
                 };
                 document.getElementById("registerButton").onclick = function () {
-                    location.href = "{% url 'exotic_bay:register' %}";
+                    location.href = "{% url 'account_signup' %}";
                 };
                 document.getElementById("contactButton").onclick = function () {
                     location.href = "{% url 'exotic_bay:contact' %}";
