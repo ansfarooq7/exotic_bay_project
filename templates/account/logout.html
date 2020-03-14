@@ -1,0 +1,28 @@
+{% extends "exotic_bay/base.html" %}
+
+{% block title_block %}Sign Out{% endblock %}
+
+{% block body_block %}
+    <main>
+        <div class="container">
+            <section class="mb-4">
+                <div class="row wow fadeIn">
+                    <div class='col-6 offset-3 py-2 px-md-5'>
+                        <div class="text-center">
+                            <h1 class="h1 mb-3 font-weight-normal">Sign Out</h1>
+                            <p>Are you sure you want to sign out?</p>
+                            <form method="post" action="{% url 'account_logout' %}">
+                                {% csrf_token %}
+                                {% if redirect_field_value %}
+                                    <input type="hidden" name="{{ redirect_field_name }}"
+                                           value="{{ redirect_field_value }}"/>
+                                {% endif %}
+                                <button class='btn btn-primary' type="submit">Sign Out</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+{% endblock %}
