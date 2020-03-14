@@ -1,25 +1,32 @@
 <!DOCTYPE html>
 {% load staticfiles %}
+{% load exotic_bay_template_tags %}
 
 <html>
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <link href="https://getbootstrap.com/docs/4.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="https://getbootstrap.com/docs/4.2/examples/dashboard/dashboard.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/38291fd9fa.js" crossorigin="anonymous"></script>
-    {% block custom_style %}{% endblock %}
+    <!-- Custom styles for this template -->
+    {% block custom_style %}
+        <link href="https://getbootstrap.com/docs/4.2/examples/dashboard/dashboard.css" rel="stylesheet">
+    {% endblock %}
     <title>
         Exotic-Bay -
         {% block title_block %}
-        Shop now!
+            Shop now!
         {% endblock %}
     </title>
-
+    <script>
+        $(document).ready(function () {
+            $('li.active').removeClass('active');
+            $('a[href="' + location.pathname + '"]').closest('li').addClass('active');
+        });
+    </script>
     <style type="text/css">
         .top-right {
             top: 25%;
@@ -46,8 +53,8 @@
 
         @media (min-width: 992px) {
             .navbar li {
-                margin-left: 6em;
-                margin-right: 6em;
+                margin-left: 5em;
+                margin-right: 5em;
             }
         }
 
@@ -68,43 +75,34 @@
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <div class="navbar-header">
-            <a class="navbar-brand" href="{% url 'exotic_bay:home' %}"><img alt="exotic-bay logo" class="img-responsive logo"
-                                                  src="{% static 'images/logo_size.png' %}"/></a>
+            <a class="navbar-brand" href="{% url 'exotic_bay:home' %}"><img alt="exotic-bay logo"
+                                                                            class="img-responsive logo"
+                                                                            src="{% static 'images/logo_size.png' %}"/></a>
         </div>
         <ul class="navbar-nav nav-fill w-100">
             {% if user.is_authenticated %}
-            <div class="position-absolute top-right">
-                <button class="btn btn-primary btn-sm" id="logoutButton" type="button">Logout</button>
-            </div>
-            <script type="text/javascript">
-                document.getElementById("logoutButton").onclick = function () {
-                    location.href = "{% url 'account_logout' %}";
-                };
-            </script>
+                <div class="position-absolute top-right">
+                    <a class="btn btn-primary btn-sm" href="{% url 'account_logout' %}" id="logoutButton" type="button">Logout</a>
+                    <a class="btn btn-outline-secondary btn-sm" href="{% url 'exotic_bay:contact' %}" id="contactButton"
+                       type="button">Contact Us
+                    </a>
+                </div>
+
             {% else %}
-            <!-- Login/Sign-up Buttons -->
-            <div class="position-absolute top-right">
-                <button class="btn btn-success btn-sm" id="loginButton" type="button">Login</button>
-                <button class="btn btn-outline-secondary btn-sm" id="registerButton" type="button">Sign Up</button>
-                <button class="btn btn-outline-secondary btn-sm" id="contactButton" type="button">Contact Us</button>
-            </div>
-            <!-- Script to make buttons act as hyperlinks -->
-            <script type="text/javascript">
-                document.getElementById("loginButton").onclick = function () {
-                    location.href = "{% url 'account_login' %}";
-                };
-                document.getElementById("registerButton").onclick = function () {
-                    location.href = "{% url 'account_signup' %}";
-                };
-                document.getElementById("contactButton").onclick = function () {
-                    location.href = "{% url 'exotic_bay:contact' %}";
-                };
-            </script>
+                <!-- Login/Sign-up Buttons -->
+                <div class="position-absolute top-right">
+                    <a class="btn btn-success btn-sm" href="{% url 'account_login' %}" id="loginButton" type="button">Login</a>
+                    <a class="btn btn-outline-secondary btn-sm" href="{% url 'account_signup' %}" id="registerButton"
+                       type="button">Sign Up</a>
+                    <a class="btn btn-outline-secondary btn-sm" href="{% url 'exotic_bay:contact' %}" id="contactButton"
+                       type="button">Contact Us
+                    </a>
+                </div>
             {% endif %}
         </ul>
         <!-- Search bar -->
         <div id="searchbar">
-            <form class="form-inline d-flex justify-content-center md-form form-sm mt-0">
+            <form class="form-inline d-flex justify-content-center md-form form-sm">
                 <i aria-hidden="true" class="fas fa-search"></i>
                 <input aria-label="Search" class="form-control form-control-sm ml-3 w-75" placeholder="Search"
                        type="text">
@@ -113,15 +111,24 @@
     </nav>
     <nav class="navbar navbar-expand-sm bg-light navbar-light" style="background-color: #e3f2fd;">
         <ul class="navbar-nav mx-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'exotic_bay:home' %}">Home</a>
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'exotic_bay:home' %}">
+                    <i class="fas fa-home"></i>
+                    Home
+                </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'exotic_bay:about' %}">About</a>
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'exotic_bay:about' %}">
+                    <i class="fas fa-info-circle"></i>
+                    About Us
+                </a>
             </li>
             <!-- Pets Dropdown menu-->
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="navbardrop">Pets</a>
+            <li class="nav-item dropdown active">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="navbardrop">
+                    <i class="fas fa-spider"></i>
+                    Pets
+                </a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="#">Reptiles</a>
                     <a class="dropdown-item" href="#">Canidae</a>
@@ -130,12 +137,32 @@
                     <a class="dropdown-item" href="#">Marsupial</a>
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'exotic_bay:watchlist' %}">Watchlist</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'exotic_bay:basket' %}">Basket</a>
-            </li>
+            {% if request.user.is_authenticated %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'exotic_bay:watchlist' %}">
+                        <i class="fas fa-clipboard-list"></i>
+                        Watchlist
+                    </a>
+                </li>
+                <li class="nav-item active">
+
+                    <a class="nav-link" href="{% url 'exotic_bay:basket' %}">
+                        <i class="fas fa-shopping-cart"></i>
+                        Basket
+                        <span class="badge badge-primary ml-1"> {{ request.user|basket_pet_count }} </span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'account_login' %}">
+                        <i class="fas fa-clipboard-list"></i>
+                        Watchlist
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'account_login' %}">Basket</a>
+                </li>
+            {% endif %}
         </ul>
     </nav>
 </header>
