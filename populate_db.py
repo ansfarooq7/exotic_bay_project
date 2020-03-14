@@ -17,8 +17,7 @@ def populate():
                  'stock': 1000,
                  'description': 'Mexican Red Knee is a popular choice for beginners and enthusiasts alike.  Like most '
                                 'tarantulas, it has a long lifespan.',
-                 'careDetails': 'This spider needs to be kept in a terrestial style plastic faunarium or suitable '
-                                'glass enclosure. ',
+                 'careDetails': 'This spider needs to be kept in a terrestial style plastic faunarium or suitable glass enclosure.',
                  'orders': 0,
                  'dateAdded': datetime.date(2020, 2, 4),
                  'image': 'pet_images/mexican-red-knee.jpg'},
@@ -28,8 +27,7 @@ def populate():
                  'price': '40',
                  'type': 'Reptiles',
                  'stock': 10,
-                 'description': 'The Panther Chameleon, being one of the easiest species of Chameleon to own makes them a '
-                                'favourite among lizard owners.',
+                 'description': 'The Panther Chameleon, being one of the easiest species of Chameleon to own makes them a favourite among lizard owners.',
                  'careDetails': 'This breed of Chameleon is incredibly territorial and usually should be housed '
                                 'individually in a mesh enclosure. ',
                  'orders': 0,

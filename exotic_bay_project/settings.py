@@ -38,10 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
     'django_countries',
     'crispy_forms',
-    # 'exotic_bay.apps.ExoticBayConfig',
-    'register.apps.RegisterConfig',
     'exotic_bay',
 ]
 
@@ -66,6 +69,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.media',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -135,8 +139,15 @@ REGISTRATION_OPEN = True
 # If True, the user will be automatically logged in after registering.
 REGISTRATION_AUTO_LOGIN = True
 
+# Auth
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
+)
+SITE_ID = 1
 # The URL that Django redirects users to after logging in.
 LOGIN_REDIRECT_URL = 'exotic_bay:home'
 LOGIN_URL = 'exotic_bay:login'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-CRISPY_TEMPLATE_PACK="bootstrap4"
+CRISPY_TEMPLATE_PACK = "bootstrap4"
