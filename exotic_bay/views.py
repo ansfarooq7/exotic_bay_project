@@ -1,16 +1,15 @@
 import datetime
+from math import ceil
 
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
-from django.urls import reverse
 from django.utils import timezone
 
-from exotic_bay.forms import ContactForm, RegisterForm, BasketAddPetForm
+from exotic_bay.forms import ContactForm, BasketAddPetForm
 from exotic_bay.models import Pet, PetOrder, Basket
 
 
@@ -25,6 +24,26 @@ def home(request):
 
     # Render the response and send it back.
     return response
+
+
+def searchMatch(query, item):
+    if query in item.description.lower() or query in item.name.lower() or query in item.type.lower():
+        return True
+    else:
+        return False
+
+
+def search(request):
+    query = request.GET.get('search')
+    allPets = []
+    typePets = Pet.objects.values('type')
+    types = {item['type'] for item in typePets}
+    for type in types:
+        tempPet = Pet.objects.filter(type=type)
+        pet = [item for item in tempPet if searchMatch(query, item)]
+        allPets.append(pet)
+    context_dict = {'allPets': allPets}
+    return render(request, 'exotic_bay/search.html', context_dict)
 
 
 def pet_details(request, type, pet_name_slug):
@@ -71,71 +90,6 @@ def about(request):
 
     # Render the response and send it back.
     return response
-
-
-# def register(request):
-#     registered = False
-#
-#     if request.method == 'POST':
-#         user_form = UserForm(request.POST)
-#
-#         if user_form.is_valid():
-#             user = user_form.save()
-#
-#             user.set_password(user.password)
-#             user.save()
-#
-#             profile.user = user
-#
-#             profile.save()
-#
-#             registered = True
-#         else:
-#             print(user_form.errors)
-#     else:
-#         user_form = UserForm()
-#
-#     return render(request, 'exotic_bay/register.html', context={'user_form': user_form, 'registered': registered})
-
-def register(response):
-    if response.method == "POST":
-        form = RegisterForm(response.POST)
-        if form.is_valid():
-            form.save()
-        else:
-            print(form.errors)
-    else:
-        form = RegisterForm()
-
-    return render(response, "exotic_bay/register.html", context={"form": form})
-
-
-def user_login(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-
-        user = authenticate(username=username, password=password)
-
-        if user:
-            if user.is_active:
-                login(request, user)
-                return redirect(reverse('exotic_bay:home'))
-            else:
-                return HttpResponse("Your Exotic-Bay account is disabled.")
-        else:
-            print("Invalid login details: {username}, {password}")
-            return HttpResponse("Invalid login details supplied.")
-
-    else:
-        return render(request, 'exotic_bay/login.html')
-
-
-@login_required
-def user_logout(request):
-    logout(request)
-
-    return redirect(reverse('exotic_bay:home'))
 
 
 def contact_us(request):
