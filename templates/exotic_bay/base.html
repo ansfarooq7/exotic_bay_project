@@ -10,15 +10,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script src="https://kit.fontawesome.com/38291fd9fa.js" crossorigin="anonymous"></script>
+    <script crossorigin="anonymous" src="https://kit.fontawesome.com/38291fd9fa.js"></script>
     <!-- Custom styles for this template -->
     {% block custom_style %}
-        <link href="https://getbootstrap.com/docs/4.2/examples/dashboard/dashboard.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/4.2/examples/dashboard/dashboard.css" rel="stylesheet">
     {% endblock %}
     <title>
         Exotic-Bay -
         {% block title_block %}
-            Shop now!
+        Shop now!
         {% endblock %}
     </title>
     <script>
@@ -27,144 +27,87 @@
             $('a[href="' + location.pathname + '"]').closest('li').addClass('active');
         });
     </script>
-    <style type="text/css">
-        .top-right {
-            top: 25%;
-            right: 5%;
-            display: inline-block;
-        }
-
-        #searchbar {
-            position: absolute;
-            display: inline-block;
-            left: 50%;
-            margin-left: -400px;
-            width: 50%;
-        }
-
-        #login_form {
-            padding-left: 50px;
-        }
-
-        #user_form {
-            padding-top: 10px;
-            padding-left: 50px;
-        }
-
-        @media (min-width: 992px) {
-            .navbar li {
-                margin-left: 4.5em;
-                margin-right: 4.5em;
-            }
-        }
-
-        .logo {
-            height: 50px;
-        }
-
-        .navbar-brand {
-            margin: 0;
-            padding: 0;
-        }
-
-    </style>
-
 </head>
 <body>
 <header>
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="{% url 'exotic_bay:home' %}"><img alt="exotic-bay logo"
-                                                                            class="img-responsive logo"
-                                                                            src="{% static 'images/logo_size.png' %}"/></a>
-        </div>
-        <ul class="navbar-nav nav-fill w-100">
-            {% if user.is_authenticated %}
-                <div class="position-absolute top-right">
-                    <a class="btn btn-primary btn-sm" href="{% url 'account_logout' %}" id="logoutButton" type="button">Logout</a>
-                    <a class="btn btn-outline-secondary btn-sm" href="{% url 'exotic_bay:contact' %}" id="contactButton"
-                       type="button">Contact Us
-                    </a>
-                </div>
+        <nav class="navbar navbar navbar-expand-sm bg-dark navbar-dark">
+            <img alt="exotic-bay logo" class="" height="5%" src="{% static 'images/logo_size.png' %}" width="5%"/>
+             <div class="ml-auto px-4">
+            <button class="navbar-toggler mr-auto" data-target="#navbar1" data-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            </div>
+            <div class="navbar-collapse collapse justify-content-center" id="navbar1">
+                <form class="ml-3 my-auto d-inline w-50">
+                    <div class="input-group">
+                        <input class="form-control" placeholder="Search..." type="text">
+                    </div>
+                </form>
+            </div>
 
-            {% else %}
-                <!-- Login/Sign-up Buttons -->
-                <div class="position-absolute top-right">
-                    <a class="btn btn-success btn-sm" href="{% url 'account_login' %}" id="loginButton" type="button">Login</a>
-                    <a class="btn btn-outline-secondary btn-sm" href="{% url 'account_signup' %}" id="registerButton"
-                       type="button">Sign Up</a>
-                    <a class="btn btn-outline-secondary btn-sm" href="{% url 'exotic_bay:contact' %}" id="contactButton"
-                       type="button">Contact Us
-                    </a>
+            <div class="row justify-content-right p-1">
+                <div class="navbar-collapse collapse" id="navbar1">
+                    <div class="float-right pr-3">
+                        <a class="btn btn-success btn-sm" href="{% url 'account_login' %}" role="button">Login</a>
+                        <a class="btn btn-outline-secondary btn-sm" href="{% url 'account_signup' %}" role="button">Sign
+                            Up</a>
+                        <a class="btn btn-outline-secondary btn-sm" href="{% url 'exotic_bay:contact' %}" role="button">Contact
+                            Us</a>
+                    </div>
                 </div>
-            {% endif %}
-        </ul>
-        <!-- Search bar -->
-        <div id="searchbar">
-            <form class="form-inline d-flex justify-content-center md-form form-sm" method="get"
-                  action="{% url 'exotic_bay:search' %}">
-                <i aria-hidden="true" class="fas fa-search"></i>
-                <input id="search" class="form-control form-control-sm ml-3 w-75" placeholder="Search"
-                       type="text" name="search">
-            </form>
+            </div>
+        </nav>
+    <nav class="navbar navbar-expand-sm bg-light navbar-light">
+        <div class="container">
+             <div class="ml-auto">
+            <button class="navbar-toggler" data-target="#navbar2" data-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+             </div>
+            <div class="navbar-collapse collapse" id="navbar2">
+                <ul class="navbar-nav nav-fill w-100">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'exotic_bay:home' %}">
+                            <i class="fas fa-home"></i>
+                            Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'exotic_bay:about' %}">
+                            <i class="fas fa-info-circle"></i>
+                            About Us
+                        </a>
+                    </li>
+                    </li>
+                    <!-- Pets Dropdown menu-->
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="navbardrop">
+                            <i class="fas fa-spider"></i>
+                            Pets
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Reptiles</a>
+                            <a class="dropdown-item" href="#">Canidae</a>
+                            <a class="dropdown-item" href="#">Amphibians</a>
+                            <a class="dropdown-item" href="#">Inverts</a>
+                            <a class="dropdown-item" href="#">Marsupial</a>
+                        </div>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'account_login' %}">
+                            <i class="fas fa-clipboard-list"></i>
+                            Watchlist
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'exotic_bay:basket' %}">
+                            <i class="fas fa-shopping-cart"></i>
+                            Basket
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </nav>
-    <nav class="navbar navbar-expand-sm bg-light navbar-light" style="background-color: #e3f2fd;">
-        <ul class="navbar-nav mx-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'exotic_bay:home' %}">
-                    <i class="fas fa-home"></i>
-                    Home
-                </a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'exotic_bay:about' %}">
-                    <i class="fas fa-info-circle"></i>
-                    About Us
-                </a>
-            </li>
-            <!-- Pets Dropdown menu-->
-            <li class="nav-item dropdown active">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="navbardrop">
-                    <i class="fas fa-spider"></i>
-                    Pets
-                </a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Reptiles</a>
-                    <a class="dropdown-item" href="#">Canidae</a>
-                    <a class="dropdown-item" href="#">Amphibians</a>
-                    <a class="dropdown-item" href="#">Inverts</a>
-                    <a class="dropdown-item" href="#">Marsupial</a>
-                </div>
-            </li>
-            {% if request.user.is_authenticated %}
-                <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'exotic_bay:watchlist' %}">
-                        <i class="fas fa-clipboard-list"></i>
-                        Watchlist
-                    </a>
-                </li>
-                <li class="nav-item active">
-
-                    <a class="nav-link" href="{% url 'exotic_bay:basket' %}">
-                        <i class="fas fa-shopping-cart"></i>
-                        Basket
-                        <span class="badge badge-primary ml-1"> {{ request.user|basket_pet_count }} </span>
-                    </a>
-                </li>
-            {% else %}
-                <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'account_login' %}">
-                        <i class="fas fa-clipboard-list"></i>
-                        Watchlist
-                    </a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'account_login' %}">Basket</a>
-                </li>
-            {% endif %}
-        </ul>
     </nav>
 </header>
 <div>
