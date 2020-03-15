@@ -2,88 +2,81 @@
 {% load staticfiles %}
 
 {% block title_block %}
-Home
+    Home
 {% endblock %}
 
 {% block body_block %}
 
 
-<!-- Styling -->
-<style>
-    .row {
-        padding-left: 200px;
-        padding-right: 200px;
-        padding-top: 20px;
-        padding-bottom: 20px;
-    }
+    <!-- Styling -->
+    <style>
+        .added_items_empty {
+            padding-top: 100px;
+            padding-bottom: 100px;
+            text-align: center;
+        }
 
-    .card_header {
-        padding-top: 20px;
-        padding-left: 20px;
-    }
+    </style>
 
-    .added_items_empty {
-        padding-top: 100px;
-        padding-bottom: 100px;
-        text-align: center;
-    }
-
-</style>
-
-<!-- Featured Card -->
-<div class="featured">
-    <div class="card mb-6">
-        <div class="card_header">
-            <h4> Featured Pets</h4>
-        </div>
-        <div class="row">
-            {% for pet in pets %}
-            <div class="col-lg-3 col-md-6 mb-3">
-                <div class="card h-100">
-                    <a href=""><img alt="" class="card-img-top" src="{{ pet.image.url }}"></a>
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <a href="{{pet.type}}/{{ pet.slug }}/">{{ pet.name }}</a>
-                        </h4>
-                        <h5>£{{ pet.price }}</h5>
-                        <p class="card-text">{{ pet.description }}</p>
-                    </div>
-                </div>
+    <!-- Featured Card -->
+    <div class="featured">
+        <div class="card">
+            <div class="card-header">
+                <h4> Featured Pets</h4>
             </div>
-            {% endfor %}
+            <div class="row py-3 px-5">
+                {% for pet in pets %}
+                    <div class="col-3">
+                        <div class="card h-100">
+                            <a href="{% url 'exotic_bay:pet_details' pet.type pet.slug %}">
+                                <img alt="" class="card-img-top" src="{{ pet.image.url }}">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="{% url 'exotic_bay:pet_details' pet.type pet.slug %}">{{ pet.name }}</a>
+                                </h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ pet.type }}</h6>
+                                <h6 class="card-title">£{{ pet.price }}</h6>
+                                <p class="card-text">{{ pet.description }}...</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
-</div>
 
-<!-- Recently Added Card -->
-<div class="recently_added">
-    <div class="card mb-6">
-        <div class="card_header">
-            <h4> Recently Added Pets</h4>
-        </div>
-        <div class="row">
-            {% if recently_added.exists %}
-            {% for pet in recently_added %}
-            <div class="col-lg-3 col-md-6 mb-3">
-                <div class="card h-100">
-                    <a href="#"><img alt="" class="card-img-top" src="{{ pet.image.url }}"></a>
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <a href="{{pet.type}}/{{ pet.slug }}/">{{ pet.name }}</a>
-                        </h4>
-                        <h5>£{{ pet.price }}</h5>
-                        <p class="card-text">{{ pet.description }}</p>
-                    </div>
-                </div>
+    <!-- Recently Added Card -->
+    <div class="recently_added">
+        <div class="card">
+            <div class="card-header">
+                <h4> Recently Added Pets</h4>
             </div>
-            {% endfor %}
+            <div class="row py-3 px-5">
+                {% if recently_added.exists %}
+                    {% for pet in recently_added %}
+                        <div class="col-3">
+                        <div class="card h-100">
+                            <a href="{% url 'exotic_bay:pet_details' pet.type pet.slug %}">
+                                <img alt="" class="card-img-top" src="{{ pet.image.url }}">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="{% url 'exotic_bay:pet_details' pet.type pet.slug %}">{{ pet.name }}</a>
+                                </h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ pet.type }}</h6>
+                                <h6 class="card-title">£{{ pet.price }}</h6>
+                                <p class="card-text">{{ pet.description }}...</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                    </div>
+                    <div class="added_items_empty">
+                        <h3>There are no recently added items</h3>
+                    </div>
+                {% endif %}
         </div>
-        {% else %}
-        </div>
-        <div class="added_items_empty">
-            <h3>There are no recently added items</h3>
-        </div>
-        {% endif %}
-</div>
 
 {% endblock %}

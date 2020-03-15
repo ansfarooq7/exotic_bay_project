@@ -53,8 +53,8 @@
 
         @media (min-width: 992px) {
             .navbar li {
-                margin-left: 5em;
-                margin-right: 5em;
+                margin-left: 4.5em;
+                margin-right: 4.5em;
             }
         }
 
@@ -102,10 +102,11 @@
         </ul>
         <!-- Search bar -->
         <div id="searchbar">
-            <form class="form-inline d-flex justify-content-center md-form form-sm">
+            <form class="form-inline d-flex justify-content-center md-form form-sm" method="get"
+                  action="{% url 'exotic_bay:search' %}">
                 <i aria-hidden="true" class="fas fa-search"></i>
-                <input aria-label="Search" class="form-control form-control-sm ml-3 w-75" placeholder="Search"
-                       type="text">
+                <input id="search" class="form-control form-control-sm ml-3 w-75" placeholder="Search"
+                       type="text" name="search">
             </form>
         </div>
     </nav>
