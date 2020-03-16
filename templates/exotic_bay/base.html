@@ -30,41 +30,45 @@
 </head>
 <body>
 <header>
-     <!-- Navigation Bar -->
-        <nav class="navbar navbar navbar-expand-sm bg-dark navbar-dark">
-            <img alt="exotic-bay logo" class="" height="5%" src="{% static 'images/logo_size.png' %}" width="5%"/>
-             <div class="ml-auto px-4">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar navbar-expand-sm bg-dark navbar-dark">
+        <img alt="exotic-bay logo" class="" height="5%" src="{% static 'images/logo_size.png' %}" width="5%"/>
+        <div class="ml-auto px-4">
             <button class="navbar-toggler mr-auto" data-target="#navbar1" data-toggle="collapse" type="button">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            </div>
-            <div class="navbar-collapse collapse justify-content-center" id="navbar1">
-                <form class="ml-3 my-auto d-inline w-50">
-                    <div class="input-group">
-                        <input class="form-control" placeholder="Search..." type="text">
-                    </div>
-                </form>
-            </div>
+        </div>
+        <div class="navbar-collapse collapse justify-content-center" id="navbar1">
+            <form class="ml-3 my-auto d-inline w-50">
+                <div class="input-group">
+                    <input class="form-control" placeholder="Search..." type="text">
+                </div>
+            </form>
+        </div>
 
-            <div class="row justify-content-right p-1">
-                <div class="navbar-collapse collapse" id="navbar1">
-                    <div class="float-right pr-3">
-                        <a class="btn btn-success btn-sm" href="{% url 'account_login' %}" role="button">Login</a>
-                        <a class="btn btn-outline-secondary btn-sm" href="{% url 'account_signup' %}" role="button">Sign
-                            Up</a>
-                        <a class="btn btn-outline-secondary btn-sm" href="{% url 'exotic_bay:contact' %}" role="button">Contact
-                            Us</a>
-                    </div>
+        <div class="row justify-content-right p-1">
+            <div class="navbar-collapse collapse" id="navbar1">
+                <div class="float-right pr-3">
+                    {% if user.is_authenticated %}
+                    <a class="btn btn-primary btn-sm" href="{% url 'account_logout' %}" role="button">Logout</a>
+                    {% else %}
+                    <a class="btn btn-success btn-sm" href="{% url 'account_login' %}" role="button">Login</a>
+                    <a class="btn btn-outline-secondary btn-sm" href="{% url 'account_signup' %}" role="button">Sign
+                        Up</a>
+                    {% endif %}
+                    <a class="btn btn-outline-secondary btn-sm" href="{% url 'exotic_bay:contact' %}" role="button">Contact
+                        Us</a>
                 </div>
             </div>
-        </nav>
+        </div>
+    </nav>
     <nav class="navbar navbar-expand-sm bg-light navbar-light">
         <div class="container">
-             <div class="ml-auto">
-            <button class="navbar-toggler" data-target="#navbar2" data-toggle="collapse" type="button">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-             </div>
+            <div class="ml-auto">
+                <button class="navbar-toggler" data-target="#navbar2" data-toggle="collapse" type="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
             <div class="navbar-collapse collapse" id="navbar2">
                 <ul class="navbar-nav nav-fill w-100">
                     <li class="nav-item active">
