@@ -105,10 +105,11 @@
                             Watchlist
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item ">
                         <a class="nav-link" href="{% url 'exotic_bay:basket' %}">
                             <i class="fas fa-shopping-cart"></i>
                             Basket
+                            <span class="badge badge-primary ml-1"> {{ request.user|basket_pet_count }} </span>
                         </a>
                     </li>
                     {% endif %}
