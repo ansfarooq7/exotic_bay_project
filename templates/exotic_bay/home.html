@@ -8,64 +8,60 @@ Home
 {% block body_block %}
 
 
-<!-- Featured Card -->
+<!-- Featured Cards -->
 <div class="featured">
     <div class="card">
         <div class="card-header">
-            <h4> Featured Pets</h4>
+            <h4 style="text-align:center"> Featured Pets</h4>
         </div>
-        <div class="row py-3 px-5 justify-content-center w-100">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
             {% for pet in pets %}
-            <div class="col-3">
-                <div class="card h-100 ">
-                    <a href="{% url 'exotic_bay:pet_details' pet.type pet.slug %}">
-                        <img alt="" class="card-img-top" src="{{ pet.image.url }}">
-                    </a>
+            <div class="col mb-4">
+                <div class="card">
+                    <img alt="..." class="card-img-top" src="{{ pet.image.url }}">
                     <div class="card-body">
                         <h5 class="card-title">
                             <a href="{% url 'exotic_bay:pet_details' pet.type pet.slug %}">{{ pet.name }}</a>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ pet.type }}</h6>
+                            <h6 class="card-title">£{{ pet.price }}</h6>
+                            <p class="card-text">{{ pet.description }}</p>
                         </h5>
-                        <h6 class="card-subtitle mb-2 text-muted">{{ pet.type }}</h6>
-                        <h6 class="card-title">£{{ pet.price }}</h6>
-                        <p class="card-text">{{ pet.description }}...</p>
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
     </div>
-</div>
 
-<!-- Recently Added Card -->
-<div class="recently_added">
-    <div class="card">
-        <div class="card-header">
-            <h4> Recently Added Pets</h4>
-        </div>
-        <div class="row py-3 px-5 justify-content-center w-100">
-            {% if recently_added.exists %}
-            {% for pet in recently_added %}
-            <div class="col-3">
-                <div class="card h-100">
-                    <a href="{% url 'exotic_bay:pet_details' pet.type pet.slug %}">
-                        <img alt="" class="card-img-top" src="{{ pet.image.url }}">
-                    </a>
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <a href="{% url 'exotic_bay:pet_details' pet.type pet.slug %}">{{ pet.name }}</a>
-                        </h5>
-                        <h6 class="card-subtitle mb-2 text-muted">{{ pet.type }}</h6>
-                        <h6 class="card-title">£{{ pet.price }}</h6>
-                        <p class="card-text">{{ pet.description }}...</p>
+
+    <!-- Recently Added Cards -->
+    <div class="recently-added">
+        <div class="card">
+            <div class="card-header">
+                <h4 style="text-align:center"> Recently Added </h4>
+            </div>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-4">
+                {% if recently_added.exists %}
+                {% for pet in recently_added %}
+                <div class="col mb-4">
+                    <div class="card">
+                        <img alt="..." class="card-img-top" src="{{ pet.image.url }}">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="{% url 'exotic_bay:pet_details' pet.type pet.slug %}">{{ pet.name }}</a>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ pet.type }}</h6>
+                                <h6 class="card-title">£{{ pet.price }}</h6>
+                                <p class="card-text">{{ pet.description }}</p>
+                            </h5>
+                        </div>
                     </div>
                 </div>
                 {% endfor %}
+                {% else %}
+                <div>
+                    <h3 style="text-align:center">There are no recently added items</h3>
+                </div>
+                {% endif %}
             </div>
-            {% else %}
         </div>
-        <div class="added_items_empty">
-            <h3>There are no recently added items</h3>
-        </div>
-        {% endif %}
-    </div>
-    {% endblock %}
+        {% endblock %}
