@@ -39,7 +39,8 @@
             </button>
         </div>
         <div class="navbar-collapse collapse justify-content-center" id="navbar1">
-            <form class="ml-3 my-auto d-inline w-50">
+            <form class="ml-3 my-auto d-inline w-50" method="get"
+                  action="{% url 'exotic_bay:search' %}">
                 <div class="input-group">
                     <input class="form-control" placeholder="Search..." type="text" name="search">
                 </div>
