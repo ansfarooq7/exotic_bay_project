@@ -114,6 +114,24 @@ def populate():
                  'orders': 0,
                  'dateAdded': datetime.date(2020, 1, 1),
                  'image': 'pet_images/fennec-fox.jpg'},
+
+            'Blue Poison Dart Frog':
+                {'scientificName': 'Dendrobates tinctorius azureus',
+                 'price': '95',
+                 'type': 'Amphibians',
+                 'stock': 420,
+                 'description': 'Bright blue animals are a rarity in nature and this species is unquestionably one of '
+                                'the most spectacular. Few dart frog collections exist without Blue Poison Dart Frogs '
+                                'being present; a must for any serious keeper.',
+                 'careDetails': 'House this species singularly, in sexed pairs or sexed trios of (2.1). Upon '
+                                'maturity, females can be aggressive towards one another, so it usually best to house '
+                                'one female per enclosure. However, if enough space is provided they will often form '
+                                'their own territories. Provide a glass terrarium of at least 45 x 45 x 45cm (18 x 18 '
+                                'x 18”) to house an adult sexed pair, and larger, if there are more of them. Young '
+                                'frogs can be reared in plastic terrariums or smaller glass enclosures.',
+                 'orders': 0,
+                 'dateAdded': datetime.date(2020, 3, 20),
+                 'image': 'pet_images/blue-poison-dart-frog.jpg'},
             }
 
     # If you want to add more categories or pages,
