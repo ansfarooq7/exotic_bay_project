@@ -13,12 +13,12 @@
     <script crossorigin="anonymous" src="https://kit.fontawesome.com/38291fd9fa.js"></script>
     <!-- Custom styles for this template -->
     {% block custom_style %}
-    <link href="https://getbootstrap.com/docs/4.2/examples/dashboard/dashboard.css" rel="stylesheet">
+        <link href="https://getbootstrap.com/docs/4.2/examples/dashboard/dashboard.css" rel="stylesheet">
     {% endblock %}
     <title>
         Exotic-Bay -
         {% block title_block %}
-        Shop now!
+            Shop now!
         {% endblock %}
     </title>
     <script>
@@ -51,11 +51,43 @@
             <div class="navbar-collapse collapse" id="navbar1">
                 <div class="float-right pr-3">
                     {% if user.is_authenticated %}
-                    <a class="btn btn-primary btn-sm" href="{% url 'account_logout' %}" role="button">Logout</a>
+                        <div class="dropdown float-left pr-1">
+                            <a class="btn btn-outline-secondary btn-sm dropdown-toggle" href="" role="button"
+                               id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-user"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="{% url 'account_change_password' %}">
+                                    <i class="fas fa-key"></i>
+                                    Change Password
+                                </a>
+                                <a class="dropdown-item" href="{% url 'account_email' %}">
+                                    <i class="fas fa-at"></i>
+                                    Change E-mail
+                                </a>
+                                <a class="dropdown-item" href="{% url 'account_logout' %}">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </div>
                     {% else %}
-                    <a class="btn btn-success btn-sm" href="{% url 'account_login' %}" role="button">Login</a>
-                    <a class="btn btn-outline-secondary btn-sm" href="{% url 'account_signup' %}" role="button">Sign
-                        Up</a>
+                        <div class="dropdown float-left pr-1">
+                            <a class="btn btn-outline-secondary btn-sm dropdown-toggle" href="" role="button"
+                               id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-user"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="{% url 'account_login' %}">
+                                    <i class="fas fa-sign-in-alt"></i>
+                                    Login
+                                </a>
+                                <a class="dropdown-item" href="{% url 'account_signup' %}">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    Sign Up
+                                </a>
+                            </div>
+                        </div>
                     {% endif %}
                     <a class="btn btn-outline-secondary btn-sm" href="{% url 'exotic_bay:contact' %}" role="button">Contact
                         Us</a>
@@ -100,19 +132,19 @@
                         </div>
                     </li>
                     {% if user.is_authenticated %}
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'exotic_bay:watchlist' %}">
-                            <i class="fas fa-clipboard-list"></i>
-                            Watchlist
-                        </a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link" href="{% url 'exotic_bay:basket' %}">
-                            <i class="fas fa-shopping-cart"></i>
-                            Basket
-                            <span class="badge badge-primary ml-1"> {{ request.user|basket_pet_count }} </span>
-                        </a>
-                    </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'exotic_bay:watchlist' %}">
+                                <i class="fas fa-clipboard-list"></i>
+                                Watchlist
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="{% url 'exotic_bay:basket' %}">
+                                <i class="fas fa-shopping-cart"></i>
+                                Basket
+                                <span class="badge badge-primary ml-1"> {{ request.user|basket_pet_count }} </span>
+                            </a>
+                        </li>
                     {% endif %}
                 </ul>
             </div>
