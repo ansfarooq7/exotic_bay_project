@@ -1,12 +1,12 @@
 import datetime
 
 from django.conf import settings
-from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
 from django.shortcuts import reverse
 from django.template.defaultfilters import slugify
 from django_countries.fields import CountryField
+from django.contrib.auth.models import User
 
 CATEGORY_CHOICES = (
     ('Reptiles', 'Reptiles'),
@@ -124,6 +124,15 @@ class Basket(models.Model):
         for pet_order in self.pets.all():
             total += pet_order.get_final_price()
         return total
+
+
+class Watchlist(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
+    pets = models.ManyToManyField(Pet)
+
+    def __str__(self):
+        return self.user.username
 
 
 class License(models.Model):

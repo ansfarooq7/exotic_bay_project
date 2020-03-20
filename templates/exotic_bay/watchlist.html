@@ -2,9 +2,45 @@
 {% load staticfiles %}
 
 {% block title_block %}
-	Watchlist
+    Watchlist
 {% endblock %}
 
 {% block body_block %}
-	<h1> Watchlist - must be filled in later!</h1>
+    <div class="card">
+        <div class="card-header">
+            <h1>Watchlist</h1>
+        </div>
+        <div class="container">
+        {% if watchlist.pets.exists %}
+            <div class="row py-3 px-5">
+                {% for pet in watchlist.pets.all %}
+                    <div class="col-3 py-3">
+                        <div class="card h-100">
+                            <a href="{% url 'exotic_bay:pet_details' pet.type pet.slug %}">
+                                <img alt="" class="card-img-top" src="{{ pet.image.url }}">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="{% url 'exotic_bay:pet_details' pet.type pet.slug %}">{{ pet.name }}</a>
+                                </h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ pet.type }}</h6>
+                                <h6 class="card-title">£{{ pet.price }}</h6>
+                                <p class="card-text">{{ pet.description|truncatewords:20 }}</p>
+                                <p class="card-text">
+                                    <a href="{% url "exotic_bay:remove-from-watchlist" pet.slug %}"
+                                       class="btn btn-danger btn-sm">
+                                        Remove from Watchlist
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <br />
+            <p class="">Your watchlist is currently empty.</p>
+        {% endif %}
+        </div>
+    </div>
 {% endblock %}

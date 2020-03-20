@@ -1,11 +1,12 @@
 {% extends 'exotic_bay/base.html' %}
 
 {% block body_block %}
-    <main>
+    <div class="card">
+        <div class="card-header">
+            <h1>Basket</h1>
+        </div>
         <div class="container">
-
             <div class="table-responsive text-nowrap">
-                <h2>Shopping Basket</h2>
                 <table class="table">
                     <thead>
                     <tr>
@@ -73,88 +74,59 @@
                     </tbody>
                 </table>
             </div>
-
-            <h2 class="subheading" , style=text-align:center;>You may also be interested in:</h2>
-
-
-            <style>
-                .subheading {
-                    font-weight: normal;
-                }
-            </style>
-
-            <style>
-                .row {
-                    padding-left: 100px;
-                    padding-right: 100px;
-                    padding-top: 20px;
-                    padding-bottom: 20px;
-                }
-
-
-                .card_header {
-                    padding-top: 20px;
-                    padding-left: 20px;
-                }
-
-                .cards {
-                    display: flex;
-                    align-items: center;
-                    position: center;
-                }
-            </style>
-
-            <div class="card mb-6 border-0">
-                <div class="card_header">
-
-                </div>
-                <div class="cards">
-                    <div class="row justify-content-md-center">
-                        <div class="col-lg-4 col-md-6 mb-3">
-                            <div class="card h-100">
-                                <a href="#"><img alt="" class="card-img-top" src="http://placehold.it/700x400"></a>
-                                <div class="card-body">
-                                    <h4 class="card-title">
-                                        <a href="#">Cat</a>
-                                    </h4>
-                                    <h5>$24.99</h5>
-                                    <p class="card-text">no</p>
-                                </div>
-                            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <h2>You may also be interested in:</h2>
+        </div>
+        <div class="container pt-3">
+            <div class="row justify-content-md-center">
+                <div class="col-lg-4 col-md-6 mb-3">
+                    <div class="card h-100">
+                        <a href="#"><img alt="" class="card-img-top" src="http://placehold.it/700x400"></a>
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a href="#">Cat</a>
+                            </h4>
+                            <h5>$24.99</h5>
+                            <p class="card-text">no</p>
                         </div>
-
-                        <div class="col-lg-4 col-md-6 mb-3">
-                            <div class="card h-100">
-                                <a href="#"><img alt="" class="card-img-top" src="http://placehold.it/700x400"></a>
-                                <div class="card-body">
-                                    <h4 class="card-title">
-                                        <a href="#">Item Two</a>
-                                    </h4>
-                                    <h5>$24.99</h5>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet
-                                        numquam
-                                        aspernatur! Lorem ipsum dolor sit amet.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-md-6 mb-3">
-                            <div class="card h-100">
-                                <a href="#"><img alt="" class="card-img-top" src="http://placehold.it/700x400"></a>
-                                <div class="card-body">
-                                    <h4 class="card-title">
-                                        <a href="#">Item sex</a>
-                                    </h4>
-                                    <h5>$24.99</h5>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet
-                                        numquam
-                                        aspernatur! Lorem ipsum dolor sit amet.</p>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
-    </main>
+
+                <div class="col-lg-4 col-md-6 mb-3">
+                    <div class="card h-100">
+                        <a href="#"><img alt="" class="card-img-top" src="http://placehold.it/700x400"></a>
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a href="#">Item Two</a>
+                            </h4>
+                            <h5>$24.99</h5>
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet
+                                numquam
+                                aspernatur! Lorem ipsum dolor sit amet.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-3">
+                    <div class="card h-100">
+                        <a href="#"><img alt="" class="card-img-top" src="http://placehold.it/700x400"></a>
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a href="#">Item sex</a>
+                            </h4>
+                            <h5>$24.99</h5>
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet
+                                numquam
+                                aspernatur! Lorem ipsum dolor sit amet.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
