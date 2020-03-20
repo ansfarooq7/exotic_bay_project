@@ -2,127 +2,171 @@
 {% load staticfiles %}
 
 {% block title_block %}
-	About Us
+    About Us
 {% endblock %}
 
 {% block body_block %}
-    <h2 xmlns="http://www.w3.org/1999/html">About us</h2>
-<html>
-<head>
-<style>
+    <div class="card">
+        <div class="card-header">
+            <h4 style="text-align:center"> About us</h4>
+        </div>
+    </div>
+    <html>
+    <head>
+        <style>
 
-.hovereffect {
-  width: 100%;
-  height: 100%;
-  float: left;
-  overflow: hidden;
-  position: relative;
-  text-align: center;
-  cursor: default;
-}
+            .hovereffect {
+                width: 100%;
+                height: 100%;
+                float: left;
+                overflow: hidden;
+                position: relative;
+                text-align: center;
+                cursor: default;
+            }
 
-.hovereffect .overlay {
-  position: absolute;
-  overflow: hidden;
-  width: 80%;
-  height: 80%;
-  left: 10%;
-  top: 10%;
-  border-bottom: 1px solid #FFF;
-  border-top: 1px solid #FFF;
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  -webkit-transform: scale(0,1);
-  -ms-transform: scale(0,1);
-  transform: scale(0,1);
-}
+            .hovereffect .overlay {
+                position: absolute;
+                overflow: hidden;
+                width: 80%;
+                height: 80%;
+                left: 10%;
+                top: 10%;
+                border-bottom: 1px solid #FFF;
+                border-top: 1px solid #FFF;
+                -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+                transition: opacity 0.35s, transform 0.35s;
+                -webkit-transform: scale(0, 1);
+                -ms-transform: scale(0, 1);
+                transform: scale(0, 1);
+            }
 
-.hovereffect:hover .overlay {
-  opacity: 1;
-  filter: alpha(opacity=100);
-  -webkit-transform: scale(1);
-  -ms-transform: scale(1);
-  transform: scale(1);
-}
+            .hovereffect:hover .overlay {
+                opacity: 1;
+                filter: alpha(opacity=100);
+                -webkit-transform: scale(1);
+                -ms-transform: scale(1);
+                transform: scale(1);
+            }
 
-.hovereffect img {
-  display: block;
-  position: relative;
-  -webkit-transition: all 0.35s;
-  transition: all 0.35s;
-}
+            .hovereffect img {
+                display: block;
+                position: relative;
+                -webkit-transition: all 0.35s;
+                transition: all 0.35s;
+            }
 
-.hovereffect:hover img {
-  filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="0.6" /><feFuncG type="linear" slope="0.6" /><feFuncB type="linear" slope="0.6" /></feComponentTransfer></filter></svg>#filter');
-  filter: brightness(0.6);
-  -webkit-filter: brightness(0.6);
-}
+            .hovereffect:hover img {
+                filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="0.6" /><feFuncG type="linear" slope="0.6" /><feFuncB type="linear" slope="0.6" /></feComponentTransfer></filter></svg>#filter');
+                filter: brightness(0.6);
+                -webkit-filter: brightness(0.6);
+            }
 
-.hovereffect h2 {
-  text-transform: uppercase;
-  text-align: center;
-  position: relative;
-  font-size: 17px;
-  background-color: transparent;
-  color: #FFF;
-  padding: 1em 0;
-  opacity: 0;
-  filter: alpha(opacity=0);
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  -webkit-transform: translate3d(0,-100%,0);
-  transform: translate3d(0,-100%,0);
-}
+            .hovereffect h2 {
+                text-transform: uppercase;
+                text-align: center;
+                position: relative;
+                font-size: 17px;
+                background-color: transparent;
+                color: #FFF;
+                padding: 1em 0;
+                opacity: 0;
+                filter: alpha(opacity=0);
+                -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+                transition: opacity 0.35s, transform 0.35s;
+                -webkit-transform: translate3d(0, -100%, 0);
+                transform: translate3d(0, -100%, 0);
+            }
 
-.hovereffect a, .hovereffect p {
-  color: #FFF;
-  padding: 1em 0;
-  opacity: 0;
-  filter: alpha(opacity=0);
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  -webkit-transform: translate3d(0,100%,0);
-  transform: translate3d(0,100%,0);
-}
+            .hovereffect a, .hovereffect p {
+                color: #FFF;
+                padding: 1em 0;
+                opacity: 0;
+                filter: alpha(opacity=0);
+                -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+                transition: opacity 0.35s, transform 0.35s;
+                -webkit-transform: translate3d(0, 100%, 0);
+                transform: translate3d(0, 100%, 0);
+            }
 
-.hovereffect:hover a, .hovereffect:hover p, .hovereffect:hover h2 {
-  opacity: 1;
-  filter: alpha(opacity=100);
-  -webkit-transform: translate3d(0,0,0);
-  transform: translate3d(0,0,0);
-}
+            .hovereffect:hover a, .hovereffect:hover p, .hovereffect:hover h2 {
+                opacity: 1;
+                filter: alpha(opacity=100);
+                -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+            }
 
-.hovereffect:hover a.info {
-  -webkit-transform: translateY(0px);
-  -ms-transform: translateY(0px);
-  transform: translateY(0px);
-  -webkit-transition-delay: 0.3s;
-  transition-delay: 0.3s;
-}
-</style>
-</head>
-<body>
+            .hovereffect:hover a.info {
+                -webkit-transform: translateY(0px);
+                -ms-transform: translateY(0px);
+                transform: translateY(0px);
+                -webkit-transition-delay: 0.3s;
+                transition-delay: 0.3s;
+            }
+        </style>
+    </head>
+    <body>
 
 
     <div class="width: 1000px">
-    <div class="hovereffect">
-       <img src="{% static 'images/fox.jpg' %}" class="img-fluid" alt="Responsive image" width="1500" height="auto" />
-        <div class="overlay">
-            <h1><span style="color: #ffffff; ">Glasgow's most popular exotic pets shop!</span></h1>
-            <br style="line-height: 40;">
-              <p><span style="font-size: 22px;">We stock some very rare species - Our list is always changing </span>
-                <a href="{% url 'exotic_bay:home' %}"><span style="font-size: 22px; color: rgb(243, 121, 52);">click here</span></a>
-              </p>
+        <div class="hovereffect">
+            <img src="{% static 'images/fox.jpg' %}" class="img-fluid" alt="Responsive image" width="1500"
+                 height="auto"/>
+            <div class="overlay">
+                <h1><span style="color: #ffffff; ">Glasgow's most popular exotic pets shop!</span></h1>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="pt-5">
+                <p><span style="font-size: 22px;">We stock some very rare species - Our list is always changing </span>
+                    <a href="{% url 'exotic_bay:home' %}"><span style="font-size: 22px; color: rgb(243, 121, 52);">click here</span></a>
+                </div>
+                </p>
+            </div>
         </div>
     </div>
-</div>
 
+    <h1 style="text-align: center;"><span style="font-family: 'Lucida Grande' "><strong> Exotic-Bay #1 Place to Buy Your Best Friend</strong></span></h1>
 
+    <body style="background-color:whitesmoke;">
 
-<h1 style="text-align:center;"><span style="background-color: #ffffff;">Exotic-Bay- still need to make this sexier</span></h1>
-<p>Exotic-Bay is the <strong>longest established</strong> exotic animal and reptile shop in Glasgow, and one of only a handful that have traded for three decades in the UK. It has a reputation that can only be earned over a long period of time!&nbsp;</p>
-<p>We are all enthusiasts like yourself and love to share our knowledge and expertise. But beware, <strong>our enthusiasm is infectious!</strong> We can help you, no matter what your level within the hobby.</p>
-<p>Exotic-Bay offers the <strong>largest selection of exotic animals in the UK</strong> with unusual and infrequently seen for sale species our specialty. At any one time,we have over 200&nbsp;reptiles, amphibians, invertebrates and other exotic animals for sale.</p>
-<p>&nbsp;</p>
+     <img src="{% static 'images/lizard.jpg' %}" alt="cat" class="float-left rounded-circle " width="360"
+         height="auto"/>
+
+     <div class="pt-3 px-3" style="font-size: 14px">
+    <p>Exotic-Bay is Glasgow's most reliable and highest rated Exotic pet specialist. Exotic-Bay is Glasgow's most reliable and highest rated Exotic pet specialist.</p>
+    <p><i class="fas fa-frog"></i> Licensed European Pet Courier</p>
+    <br>
+    <p><i class="fas fa-frog"></i> Exotic-Bay’s Largest Choice</p>
+    <br>
+    <p><i class="fas fa-frog"></i> Friendly Knowledgeable staff</p>
+     </div>
+
+    </body>
+
+    <h1 style="text-align: left;"><span style="font-family: 'Lucida Grande'">Our Mission and Purpose</span></h1>
+
+    <body style="background-color:lightgrey;">
+
+    <div class= "pb-4">
+
+    <img src="{% static 'images/weird-cat.jpg' %}" alt="cat" class="float-right rounded-circle " width="360"
+         height="auto"/>
+    </div>
+    <div class="pt-3 px-3" style="font-size: 14px">
+    <p> Exotic-Bay is the <strong>longest established</strong> exotic animal and reptile shop in Glasgow, and one of
+        only a handful that have traded for three decades in the UK. It has a reputation that can only be earned over a
+        long period of time!&nbsp;</p>
+    <p>We are all enthusiasts like yourself and love to share our knowledge and expertise. But beware, <strong>our
+        enthusiasm is infectious!</strong>
+        We can help you, no matter what your level within the hobby.</p>
+    <p>Exotic-Bay offers the <strong>largest selection of exotic animals in the UK</strong> with unusual and
+        infrequently seen for sale species our specialty.
+        At any one time,we have over 200&nbsp;reptiles, amphibians, invertebrates and other exotic animals for sale.</p>
+    </div>
+    </body>
 
 {% endblock %}
