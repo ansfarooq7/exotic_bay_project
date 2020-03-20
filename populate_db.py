@@ -1,6 +1,5 @@
-import os
-
 import django
+import os
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'exotic_bay_project.settings')
 
@@ -57,7 +56,7 @@ def populate():
                                 'but can tackle larger prey if they wish! As adults, bearded dragons are 80% '
                                 'vegetarian.',
                  'orders': 0,
-                 'dateAdded': datetime.date(2020, 3, 19),
+                 'dateAdded': datetime.date(2020, 3, 15),
                  'image': 'pet_images/bearded-dragon.jpg'},
 
             'Axolotl':
@@ -149,8 +148,41 @@ def populate():
                                 'x 18”) to house an adult sexed pair, and larger, if there are more of them. Young '
                                 'frogs can be reared in plastic terrariums or smaller glass enclosures.',
                  'orders': 0,
-                 'dateAdded': datetime.date(2020, 3, 20),
+                 'dateAdded': datetime.date(2020, 3, 19),
                  'image': 'pet_images/Green-Black-Poison-Dart-Frogs.jpg'},
+
+            'Corn Snake':
+                {'scientificName': 'Pantherophis guttatus',
+                 'price': '38',
+                 'type': 'Reptile',
+                 'stock': 69,
+                 'description': 'Corn snakes are popular option for beginner reptile enthusiasts, with their variety '
+                                'of colours and calm temperament making them reluctant to bite or construct when '
+                                'placed under mild stress.',
+                 'careDetails': 'Since corn snakes typically average a size of 40 inches when fully grown, this snake '
+                                'does not need to be stored in a small to medium sized vivarium. Mice should be the most '
+                                'common food for the snake, ensuring it is fully defrosted and no larger than 1.5x the '
+                                'widest part of the snake. ',
+                 'orders': 0,
+                 'dateAdded': datetime.date(2020, 3, 17),
+                 'image': 'pet_images/corn-snake.jpg'},
+
+            'Spotted Python':
+                {'scientificName': 'Antaresia maculosa',
+                 'price': '150',
+                 'type': 'Reptile',
+                 'stock': 10,
+                 'description': 'The spotted python, with its beautiful and distinguished pattern, is one '
+                                'one of the most sought after species of Australian python. Its renowned for its '
+                                'calm nature and relatively small size.',
+                 'careDetails': 'At a young age, Spotted Pythons are best housed within a small and flat surfaced '
+                                'plastic tank since placing the snake inside a larger environment too early can cause '
+                                'them stress. Once Adults, they should be moved into an enclosure of at least 3ft. The '
+                                'enclosure should be maintained at a temperature between 28-32C, through use of '
+                                'ceramic lamps, heat mats or basking bulbs. ',
+                 'orders': 0,
+                 'dateAdded': datetime.date(2020, 3, 13),
+                 'image': 'pet_images/spotted-python.jpg'},
             }
 
     # If you want to add more categories or pages,
