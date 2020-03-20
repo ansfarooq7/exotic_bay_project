@@ -15,9 +15,8 @@ from exotic_bay.models import Pet, PetOrder, Basket
 
 def home(request):
     context_dict = {}
-    context_dict['pets'] = Pet.objects.all()
-    context_dict['recently_added'] = Pet.objects.filter(
-        date_added__gte=datetime.date.today() - datetime.timedelta(days=1))
+    context_dict['pets'] = Pet.objects.all()[:4]
+    context_dict['recently_added'] = Pet.objects.all().order_by('-date_added')[:4]
 
     # Obtain our Response object early so we can add cookie information.
     response = render(request, 'exotic_bay/home.html', context=context_dict)
