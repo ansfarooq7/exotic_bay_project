@@ -1,5 +1,4 @@
 import datetime
-from math import ceil
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -10,7 +9,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.utils import timezone
 
 from exotic_bay.forms import ContactForm, BasketAddPetForm
-from exotic_bay.models import Pet, PetOrder, Basket
+from exotic_bay.models import Pet, PetOrder, Basket, Watchlist
 
 
 def home(request):
@@ -128,13 +127,16 @@ def basket(request):
 
 
 def watchlist(request):
-    context_dict = {}
-
-    # Obtain our Response object early so we can add cookie information.
-    response = render(request, 'exotic_bay/watchlist.html', context=context_dict)
-
-    # Render the response and send it back.
-    return response
+    try:
+        watchlist = Watchlist.objects.get(user=request.user)
+        context_dict = {
+            'watchlist': watchlist
+        }
+        response = render(request, 'exotic_bay/watchlist.html', context=context_dict)
+        return response
+    except ObjectDoesNotExist:
+        messages.warning(request, "You do not have an active watchlist")
+        return redirect("/")
 
 
 @login_required
@@ -231,4 +233,46 @@ def add_single_pet_to_basket(request, slug):
             return redirect("exotic_bay:pet_details", type=pet.type, slug=slug)
     else:
         messages.info(request, "You do not have an active order")
+        return redirect("exotic_bay:pet_details", type=pet.type, slug=slug)
+
+
+@login_required
+def add_to_watchlist(request, slug):
+    pet = get_object_or_404(Pet, slug=slug)
+    watchlist_qs = Watchlist.objects.filter(user=request.user)
+    if watchlist_qs.exists():
+        watchlist = watchlist_qs[0]
+        # check if the pet order is in the basket
+        if watchlist.pets.filter(slug=pet.slug).exists():
+            messages.info(request, "This pet is already in your watchlist.")
+            return redirect("exotic_bay:watchlist")
+        else:
+            watchlist.pets.add(pet)
+            messages.info(request, "This pet was added to your watchlist.")
+            return redirect("exotic_bay:watchlist")
+    else:
+        watchlist = Watchlist.objects.create(
+            user=request.user)
+        watchlist.pets.add(pet)
+        messages.info(request, "This pet was added to your watchlist.")
+        return redirect("exotic_bay:watchlist")
+    return redirect('exotic_bay:watchlist')
+
+
+@login_required
+def remove_from_watchlist(request, slug):
+    pet = get_object_or_404(Pet, slug=slug)
+    watchlist_qs = Watchlist.objects.filter(user=request.user)
+    if watchlist_qs.exists():
+        watchlist = watchlist_qs[0]
+        # check if the pet order is in the basket
+        if watchlist.pets.filter(slug=pet.slug).exists():
+            watchlist.pets.remove(pet)
+            messages.info(request, "This pet was removed from your watchlist.")
+            return redirect("exotic_bay:watchlist")
+        else:
+            messages.info(request, "This pet was not in your watchlist.")
+            return redirect("exotic_bay:pet_details", type=pet.type, slug=slug)
+    else:
+        messages.info(request, "You do not have an active watchlist.")
         return redirect("exotic_bay:pet_details", type=pet.type, slug=slug)

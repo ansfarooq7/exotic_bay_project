@@ -17,5 +17,7 @@ urlpatterns = [
     path('add-single-pet-to-basket/<slug>', views.add_single_pet_to_basket,
          name='add-single-pet-to-basket'),
     path('watchlist/', views.watchlist, name='watchlist'),
+    path('add-to-watchlist/<slug>', views.add_to_watchlist, name='add-to-watchlist'),
+    path('remove-from-watchlist/<slug>', views.remove_from_watchlist, name='remove-from-watchlist'),
     path('search/', views.search, name='search'),
 ]
