@@ -132,6 +132,25 @@ def populate():
                  'orders': 0,
                  'dateAdded': datetime.date(2020, 3, 20),
                  'image': 'pet_images/blue-poison-dart-frog.jpg'},
+
+            'Green & Black Poison Dart Frog':
+                {'scientificName': 'Dendrobates auratus',
+                 'price': '80',
+                 'type': 'Amphibians',
+                 'stock': 50,
+                 'description': 'This is a popular species of arrow frog amongst hobbyists. It is '
+                                'found in Central America and '
+                                'northwestern parts of South America. '
+                                'There are many different colour forms available.',
+                 'careDetails': 'House this species singularly, in sexed pairs or sexed trios of (2.1). Upon '
+                                'maturity, females can be aggressive towards one another, so it usually best to house '
+                                'one female per enclosure. However, if enough space is provided they will often form '
+                                'their own territories. Provide a glass terrarium of at least 45 x 45 x 45cm (18 x 18 '
+                                'x 18”) to house an adult sexed pair, and larger, if there are more of them. Young '
+                                'frogs can be reared in plastic terrariums or smaller glass enclosures.',
+                 'orders': 0,
+                 'dateAdded': datetime.date(2020, 3, 20),
+                 'image': 'pet_images/Green-Black-Poison-Dart-Frogs.jpg'},
             }
 
     # If you want to add more categories or pages,
