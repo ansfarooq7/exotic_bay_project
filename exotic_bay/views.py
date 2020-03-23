@@ -12,7 +12,7 @@ from exotic_bay.models import Pet, PetOrder, Basket, Watchlist
 
 def home(request):
     context_dict = {}
-    context_dict['pets'] = Pet.objects.all()[:4]
+    context_dict['pets'] = Pet.objects.all().order_by('-orders')[:4]
     context_dict['recently_added'] = Pet.objects.all().order_by('-date_added')[:4]
 
     # Obtain our Response object early so we can add cookie information.
