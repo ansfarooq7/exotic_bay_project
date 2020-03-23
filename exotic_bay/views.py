@@ -1,5 +1,3 @@
-import datetime
-
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
@@ -23,16 +21,17 @@ def home(request):
     # Render the response and send it back.
     return response
 
+
 def reptiles(request):
     context_dict = {}
     context_dict['reptiles'] = Pet.objects.filter(type='Reptiles')
-
 
     # Obtain our Response object early so we can add cookie information.
     response = render(request, 'exotic_bay/reptiles.html', context=context_dict)
 
     # Render the response and send it back.
     return response
+
 
 def canidae(request):
     context_dict = {}
@@ -44,6 +43,7 @@ def canidae(request):
     # Render the response and send it back.
     return response
 
+
 def amphibians(request):
     context_dict = {}
     context_dict['amphibians'] = Pet.objects.filter(type='Amphibians')
@@ -53,6 +53,7 @@ def amphibians(request):
 
     # Render the response and send it back.
     return response
+
 
 def inverts(request):
     context_dict = {}
@@ -64,6 +65,7 @@ def inverts(request):
     # Render the response and send it back.
     return response
 
+
 def marsupials(request):
     context_dict = {}
     context_dict['marsupials'] = Pet.objects.filter(type='Marsupials')
@@ -73,9 +75,6 @@ def marsupials(request):
 
     # Render the response and send it back.
     return response
-
-
-
 
 
 def searchMatch(query, item):
@@ -168,11 +167,20 @@ def success(request):
 
 def basket(request):
     try:
-        pets = Pet.objects.all()[:4]
+        pets = []
+        petsInBasket = []
         basket = Basket.objects.get(user=request.user, ordered=False)
+
+        for pet_order in basket.pets.all():
+            petsInBasket.append(pet_order.pet)
+
+        for pet in Pet.objects.all().order_by('orders'):
+            if pet not in petsInBasket:
+                pets.append(pet)
+
         context_dict = {
             'basket': basket,
-            'alsoInterested': pets
+            'alsoInterested': pets[:4]
         }
         response = render(request, 'exotic_bay/basket.html', context=context_dict)
         return response
