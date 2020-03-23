@@ -24,6 +24,61 @@ def home(request):
     return response
 
 
+def reptiles(request):
+    context_dict = {}
+    context_dict['reptiles'] = Pet.objects.filter(type='Reptiles')
+
+
+    # Obtain our Response object early so we can add cookie information.
+    response = render(request, 'exotic_bay/reptiles.html', context=context_dict)
+
+    # Render the response and send it back.
+    return response
+
+def canidae(request):
+    context_dict = {}
+    context_dict['canidae'] = Pet.objects.filter(type='Canidae')
+
+    # Obtain our Response object early so we can add cookie information.
+    response = render(request, 'exotic_bay/canidae.html', context=context_dict)
+
+    # Render the response and send it back.
+    return response
+
+def amphibians(request):
+    context_dict = {}
+    context_dict['amphibians'] = Pet.objects.filter(type='Amphibians')
+
+    # Obtain our Response object early so we can add cookie information.
+    response = render(request, 'exotic_bay/amphibians.html', context=context_dict)
+
+    # Render the response and send it back.
+    return response
+
+def inverts(request):
+    context_dict = {}
+    context_dict['inverts'] = Pet.objects.filter(type='Inverts')
+
+    # Obtain our Response object early so we can add cookie information.
+    response = render(request, 'exotic_bay/inverts.html', context=context_dict)
+
+    # Render the response and send it back.
+    return response
+
+def marsupials(request):
+    context_dict = {}
+    context_dict['marsupials'] = Pet.objects.filter(type='Marsupials')
+
+    # Obtain our Response object early so we can add cookie information.
+    response = render(request, 'exotic_bay/marsupials.html', context=context_dict)
+
+    # Render the response and send it back.
+    return response
+
+
+
+
+
 def searchMatch(query, item):
     if query in item.description.lower() or query in item.name.lower() or query in item.type.lower():
         return True

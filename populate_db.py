@@ -154,7 +154,7 @@ def populate():
             'Corn Snake':
                 {'scientificName': 'Pantherophis guttatus',
                  'price': '38',
-                 'type': 'Reptile',
+                 'type': 'Reptiles',
                  'stock': 69,
                  'description': 'Corn snakes are popular option for beginner reptile enthusiasts, with their variety '
                                 'of colours and calm temperament making them reluctant to bite or construct when '
@@ -170,7 +170,7 @@ def populate():
             'Spotted Python':
                 {'scientificName': 'Antaresia maculosa',
                  'price': '150',
-                 'type': 'Reptile',
+                 'type': 'Reptiles',
                  'stock': 10,
                  'description': 'The spotted python, with its beautiful and distinguished pattern, is one '
                                 'one of the most sought after species of Australian python. Its renowned for its '

@@ -124,11 +124,11 @@
                             Pets
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Reptiles</a>
-                            <a class="dropdown-item" href="#">Canidae</a>
-                            <a class="dropdown-item" href="#">Amphibians</a>
-                            <a class="dropdown-item" href="#">Inverts</a>
-                            <a class="dropdown-item" href="#">Marsupial</a>
+                            <a class="dropdown-item" href="{% url 'exotic_bay:reptiles' %}">Reptiles</a>
+                            <a class="dropdown-item" href="{% url 'exotic_bay:canidae' %}">Canidae</a>
+                            <a class="dropdown-item" href="{% url 'exotic_bay:amphibians' %}">Amphibians</a>
+                            <a class="dropdown-item" href="{% url 'exotic_bay:inverts' %}">Inverts</a>
+                            <a class="dropdown-item" href="{% url 'exotic_bay:marsupials' %}">Marsupial</a>
                         </div>
                     </li>
                     {% if user.is_authenticated %}
