@@ -23,7 +23,6 @@ def home(request):
     # Render the response and send it back.
     return response
 
-
 def reptiles(request):
     context_dict = {}
     context_dict['reptiles'] = Pet.objects.filter(type='Reptiles')
@@ -169,9 +168,11 @@ def success(request):
 
 def basket(request):
     try:
+        pets = Pet.objects.all()[:4]
         basket = Basket.objects.get(user=request.user, ordered=False)
         context_dict = {
-            'basket': basket
+            'basket': basket,
+            'alsoInterested': pets
         }
         response = render(request, 'exotic_bay/basket.html', context=context_dict)
         return response
