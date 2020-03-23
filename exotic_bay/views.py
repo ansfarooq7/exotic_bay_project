@@ -174,7 +174,7 @@ def basket(request):
         for pet_order in basket.pets.all():
             petsInBasket.append(pet_order.pet)
 
-        for pet in Pet.objects.all():
+        for pet in Pet.objects.all().order_by('orders'):
             if pet not in petsInBasket:
                 pets.append(pet)
 
