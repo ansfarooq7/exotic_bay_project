@@ -53,10 +53,23 @@
                                            name="quantity" value="1" min="1">
                                 </div>
                                 <br/>
-                                <input type="submit" value="Add to Basket" class="btn btn-primary btn-md my-1 p">
-                                <a href="{% url "exotic_bay:add-to-watchlist" pet.slug %}" class="btn btn-secondary btn-md my-1 p">
-                                    Add to Watchlist
-                                </a>
+                                {% if user.is_authenticated %}
+                                    <input type="submit" value="Add to Basket" class="btn btn-primary btn-md my-1 p">
+                                {% else %}
+                                    <a href="{% url 'account_login' %}" class="btn btn-primary btn-md my-1 p">
+                                        Add to Basket
+                                    </a>
+                                {% endif %}
+
+                                {% if user.is_authenticated %}
+                                    <a href="{% url "exotic_bay:add-to-watchlist" pet.slug %}" class="btn btn-secondary btn-md my-1 p">
+                                        Add to Watchlist
+                                    </a>
+                                {% else %}
+                                    <a href="{% url 'account_login' %}" class="btn btn-secondary btn-md my-1 p">
+                                        Add to Watchlist
+                                    </a>
+                                {% endif %}
                             </form>
                         </div>
                     </div>
