@@ -20,4 +20,10 @@ urlpatterns = [
     path('add-to-watchlist/<slug>', views.add_to_watchlist, name='add-to-watchlist'),
     path('remove-from-watchlist/<slug>', views.remove_from_watchlist, name='remove-from-watchlist'),
     path('search/', views.search, name='search'),
+    path('reptiles/', views.reptiles, name='reptiles'),
+    path('canidae/', views.canidae, name='canidae'),
+    path('amphibians/', views.amphibians, name='amphibians'),
+    path('inverts/', views.inverts, name='inverts'),
+    path('marsupials/', views.marsupials, name='marsupials'),
+
 ]
