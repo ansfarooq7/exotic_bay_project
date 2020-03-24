@@ -9,6 +9,7 @@
             <div class="table-responsive text-nowrap">
                 <table class="table">
                     <thead>
+                    {% if basket.pets.all %}
                     <tr>
                         <th scope="col">Image</th>
                         <th scope="col">Name</th>
@@ -16,6 +17,7 @@
                         <th scope="col">Quantity</th>
                         <th scope="col">Price</th>
                     </tr>
+                    {% endif %}
                     </thead>
                     <tbody>
                     {% for pet_order in basket.pets.all %}
@@ -41,6 +43,10 @@
                             </td>
                             <td>
                                 £{{ pet_order.pet.price }}
+                            </td>
+                            <td>
+                               <button type="button" class="close" aria-label="Close" onclick=""><span aria-hidden="true">&times;</span></button>
+                                </form>
                             </td>
                         </tr>
                     {% empty %}

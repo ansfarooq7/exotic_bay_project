@@ -209,7 +209,6 @@ def watchlist(request):
         messages.warning(request, "You do not have an active watchlist")
         return redirect("/")
 
-
 @login_required
 def add_to_basket(request, slug):
     pet = get_object_or_404(Pet, slug=slug)
@@ -217,6 +216,7 @@ def add_to_basket(request, slug):
     if form.is_valid():
         cd = form.cleaned_data
         quantity = cd['quantity']
+
         pet_order, created = PetOrder.objects.get_or_create(
             pet=pet,
             user=request.user,
@@ -233,6 +233,8 @@ def add_to_basket(request, slug):
                 return redirect("exotic_bay:basket")
             else:
                 basket.pets.add(pet_order)
+                pet_order.quantity += quantity - 1
+                pet_order.save()
                 messages.info(request, "This pet was added to your basket.")
                 return redirect("exotic_bay:basket")
         else:
