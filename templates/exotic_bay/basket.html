@@ -19,6 +19,7 @@
                     </thead>
                     <tbody>
                     {% for pet_order in basket.pets.all %}
+
                         <tr>
                             <td class="w-25">
                                 {% if pet_order.pet.image %}
@@ -56,10 +57,10 @@
 
                         </tr>
                     {% endfor %}
-
+                    {% if basket.pets.all %}
                     <tr>
                         <td colspan="4"><b>Order Total</b></td>
-                        <td><b>${{ object.get_total }}</b></td>
+                        <td><b>£{{ total }}</b></td>
                     </tr>
                     <tr>
                         <td colspan="5">
@@ -67,7 +68,7 @@
                             <a class='btn btn-primary float-right' href='/'>Continue shopping</a>
                         </td>
                     </tr>
-
+                    {% endif %}
                     </tbody>
                 </table>
             </div>
