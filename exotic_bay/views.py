@@ -5,6 +5,7 @@ from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.utils import timezone
+from django.db.models import Sum
 
 from exotic_bay.forms import ContactForm, BasketAddPetForm
 from exotic_bay.models import Pet, PetOrder, Basket, Watchlist
@@ -12,7 +13,7 @@ from exotic_bay.models import Pet, PetOrder, Basket, Watchlist
 
 def home(request):
     context_dict = {}
-    context_dict['pets'] = Pet.objects.all()[:4]
+    context_dict['pets'] = Pet.objects.all().order_by('-orders')[:4]
     context_dict['recently_added'] = Pet.objects.all().order_by('-date_added')[:4]
 
     # Obtain our Response object early so we can add cookie information.
@@ -106,6 +107,7 @@ def pet_details(request, type, pet_name_slug):
         # Can we find a pet name slug with the given name?
         # If we can't, the .get() method raises a DoesNotExist exception.
         # The .get() method returns one model instance or raises an exception.
+
         pet = Pet.objects.get(slug=pet_name_slug)
 
         context_dict['name'] = pet.name
@@ -177,10 +179,16 @@ def basket(request):
         for pet in Pet.objects.all().order_by('orders'):
             if pet not in petsInBasket:
                 pets.append(pet)
+        total = 0
+        for pet_order in basket.pets.all():
+            total += pet_order.pet.price * pet_order.quantity
+        if total == 0:
+            total = ''
 
         context_dict = {
             'basket': basket,
-            'alsoInterested': pets[:4]
+            'alsoInterested': pets[:4],
+            'total': total,
         }
         response = render(request, 'exotic_bay/basket.html', context=context_dict)
         return response
