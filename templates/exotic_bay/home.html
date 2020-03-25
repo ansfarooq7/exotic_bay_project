@@ -17,7 +17,7 @@ Home
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 w-100 pt-3 pl-4">
             {% for pet in pets %}
             <div class="col mb-4">
-                <div class="card">
+                <div class="card h-100">
                     <img alt="..." class="card-img-top" src="{{ pet.image.url }}">
                     <div class="card-body">
                         <h5 class="card-title">
@@ -44,7 +44,7 @@ Home
                 {% if recently_added.exists %}
                 {% for pet in recently_added %}
                 <div class="col mb-4">
-                    <div class="card">
+                    <div class="card h-100">
                         <img alt="..." class="card-img-top" src="{{ pet.image.url }}">
                         <div class="card-body">
                             <h5 class="card-title">
