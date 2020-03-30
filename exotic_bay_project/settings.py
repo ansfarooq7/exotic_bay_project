@@ -151,3 +151,6 @@ LOGIN_REDIRECT_URL = 'exotic_bay:home'
 LOGIN_URL = 'exotic_bay:login'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+RAVE_PUBLIC_KEY = 'FLWPUBK-caaae14bc231844625057c6b969e79a5-X'
+RAVE_SECRET_KEY = 'FLWSECK-5141b5cee2661f516b4b2f4c07e08249-X'

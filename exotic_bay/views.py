@@ -5,6 +5,7 @@ from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.utils import timezone
+from django.conf import settings
 from django.db.models import Sum
 
 from exotic_bay.forms import ContactForm, BasketAddPetForm
@@ -189,6 +190,7 @@ def basket(request):
             'basket': basket,
             'alsoInterested': pets[:4],
             'total': total,
+            'key': settings.RAVE_PUBLIC_KEY,
         }
         response = render(request, 'exotic_bay/basket.html', context=context_dict)
         return response
