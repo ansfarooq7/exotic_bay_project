@@ -51,9 +51,9 @@
                     </td>
                 </tr>
                 {% empty %}
-                    <div class="col-4 mx-auto pt-3">
-                        <p style="text-align: center; font-size: 17px;">Your basket is empty</p>
-                    </div>
+                <div class="col-4 mx-auto pt-3">
+                    <p style="text-align: center; font-size: 17px;">Your basket is empty</p>
+                </div>
 
                 <tr>
                     <td colspan="5">
@@ -72,7 +72,31 @@
                 </tr>
                 <tr>
                     <td colspan="5">
-                        <a class='btn btn-warning float-right' href='/checkout/'>Proceed to checkout</a>
+                        <form>
+                            <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>
+                            <button class='btn btn-warning float-right' onClick="payWithRave()" type="button">Checkout
+                            </button>
+                        </form>
+                        <script>
+                            const publicKey = "{{ key }}";
+
+                            function payWithRave() {
+                                var x = getpaidSetup({
+                                    PBFPubKey: publicKey,
+                                    customer_email: "{{ user.email }}",
+                                    amount: {{ total }},
+                                    currency: "GBP",
+                                    txref: "rave-123456",
+                                    custom_title: "Exotic Bay",
+                                    onclose: function() {},
+                                    callback: function(response) {
+                                        var txref = response.tx.txRef;
+                                        console.log("This is the response returned after a charge", response);
+                                        x.close();
+                                    }
+                                });
+                            }
+                        </script>
                         <a class='btn btn-primary float-right' href='/'>Continue shopping</a>
                     </td>
                 </tr>
