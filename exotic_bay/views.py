@@ -235,7 +235,7 @@ def add_to_basket(request, slug):
                 return redirect("exotic_bay:basket")
             else:
                 basket.pets.add(pet_order)
-                pet_order.quantity += quantity - 1
+                pet_order.quantity = quantity
                 pet_order.save()
                 messages.info(request, "This pet was added to your basket.")
                 return redirect("exotic_bay:basket")

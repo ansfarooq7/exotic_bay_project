@@ -1,133 +1,126 @@
 {% extends 'exotic_bay/base.html' %}
 
 {% block body_block %}
-<div class="card">
-    <div class="card-header">
-        <h4 style="text-align:center"> Basket </h4>
-    </div>
-    <div class="container">
-        <div class="table-responsive text-nowrap">
-            <table class="table">
-                <thead>
-                {% if basket.pets.all %}
-                <tr>
-                    <th scope="col">Image</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Price</th>
-                </tr>
-                {% endif %}
-                </thead>
-                <tbody>
-                {% for pet_order in basket.pets.all %}
-
-                <tr>
-                    <td class="w-25">
-                        {% if pet_order.pet.image %}
-                        <a href="{% url 'exotic_bay:pet_details' pet_order.pet.type pet_order.pet.slug %}">
-                            <img class="img-fluid img-thumbnail" src="{{ pet_order.pet.image.url }}"/>
-                        </a>
-                        {% endif %}
-                    </td>
-                    <td class="w-25 text-wrap">
-                        <p class="font-weight-bold">{{ pet_order.pet.name }}</p>
-                        {{ pet_order.pet.description }}
-                    </td>
-                    <td>
-                        <a href="{% url 'exotic-bay:remove-single-pet-from-basket' pet_order.pet.slug %}"><i
-                                class="fas fa-minus mr-2"></i></a>
-                        {{ pet_order.quantity }}
-                        <a href="{% url 'exotic_bay:add-single-pet-to-basket' pet_order.pet.slug %}"><i
-                                class="fas fa-plus ml-2"></i></a>
-                    </td>
-                    <td>
-                        £{{ pet_order.pet.price }}
-                    </td>
-                    <td>
-                        <button aria-label="Close" class="close" onclick="" type="button"><span aria-hidden="true">&times;</span>
-                        </button>
-                        </form>
-                    </td>
-                </tr>
-                {% empty %}
-                <div class="col-4 mx-auto pt-3">
-                    <p style="text-align: center; font-size: 17px;">Your basket is empty</p>
-                </div>
-
-                <tr>
-                    <td colspan="5">
-                        <div class='float-right'>
-                            <a class='btn btn-primary btn-md my-1 p' href='/'>Continue shopping</a>
-                            <a class='btn btn-warning btn-md my-1 p' href='/checkout/'>Proceed to checkout</a>
-                        </div>
-                    </td>
-
-                </tr>
-                {% endfor %}
-                {% if basket.pets.all %}
-                <tr>
-                    <td colspan="4"><b>Order Total</b></td>
-                    <td><b>£{{ total }}</b></td>
-                </tr>
-                <tr>
-                    <td colspan="5">
-                        <form>
-                            <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>
-                            <button class='btn btn-warning float-right' onClick="payWithRave()" type="button">Checkout
-                            </button>
-                        </form>
-                        <script>
-                            const publicKey = "{{ key }}";
-
-                            function payWithRave() {
-                                var x = getpaidSetup({
-                                    PBFPubKey: publicKey,
-                                    customer_email: "{{ user.email }}",
-                                    amount: {{ total }},
-                                    currency: "GBP",
-                                    txref: "rave-123456",
-                                    custom_title: "Exotic Bay",
-                                    onclose: function() {},
-                                    callback: function(response) {
-                                        var txref = response.tx.txRef;
-                                        console.log("This is the response returned after a charge", response);
-                                        x.close();
-                                    }
-                                });
-                            }
-                        </script>
-                        <a class='btn btn-primary float-right' href='/'>Continue shopping</a>
-                    </td>
-                </tr>
-                {% endif %}
-                </tbody>
-            </table>
+    <div class="card">
+        <div class="card-header">
+            <h4 style="text-align:center"> Basket </h4>
         </div>
-    </div>
-</div>
+        <div class="container">
+            <div class="table-responsive text-nowrap">
+                <table class="table">
+                    <thead>
+                    {% if basket.pets.all %}
+                        <tr>
+                            <th scope="col">Image</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Price</th>
+                        </tr>
+                    {% endif %}
+                    </thead>
+                    <tbody>
+                    {% for pet_order in basket.pets.all %}
 
-<div class="card">
-    <div class="card-header">
-        <h4 style="text-align:center"> You may also be interested in...</h4>
-    </div>
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 w-100 pt-3 pl-4">
-        {% for pet in alsoInterested %}
-        <div class="col mb-4">
-            <div class="card">
-                <img alt="..." class="card-img-top" src="{{ pet.image.url }}">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <a href="{% url 'exotic_bay:pet_details' pet.type pet.slug %}">{{ pet.name }}</a>
-                        <h6 class="card-subtitle mb-2 text-muted">{{ pet.type }}</h6>
-                        <h6 class="card-title">£{{ pet.price }}</h6>
-                        <p class="card-text">{{ pet.description }}</p>
-                    </h5>
-                </div>
+                        <tr>
+                            <td class="w-25">
+                                {% if pet_order.pet.image %}
+                                    <a href="{% url 'exotic_bay:pet_details' pet_order.pet.type pet_order.pet.slug %}">
+                                        <img class="img-fluid img-thumbnail" src="{{ pet_order.pet.image.url }}"/>
+                                    </a>
+                                {% endif %}
+                            </td>
+                            <td class="w-25 text-wrap">
+                                <p class="font-weight-bold">{{ pet_order.pet.name }}</p>
+                                <p>{{ pet_order.pet.description }}</p>
+                            </td>
+                            <td>
+                                <a href="{% url 'exotic-bay:remove-single-pet-from-basket' pet_order.pet.slug %}"><i
+                                        class="fas fa-minus mr-2"></i></a>
+                                {{ pet_order.quantity }}
+                                <a href="{% url 'exotic_bay:add-single-pet-to-basket' pet_order.pet.slug %}"><i
+                                        class="fas fa-plus ml-2"></i></a>
+                            </td>
+                            <td>
+                                £{{ pet_order.pet.price }}
+                                <a class="close"><span>&times;</span>
+                                </a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <div class="col-4 mx-auto pt-3">
+                            <p style="text-align: center; font-size: 17px;">Your basket is empty</p>
+                        </div>
+                        <tr>
+                            <td colspan="4">
+                                <div class='float-right'>
+                                    <a class='btn btn-primary btn-md my-1 p' href='/'>Continue shopping</a>
+                                </div>
+                            </td>
+
+                        </tr>
+                    {% endfor %}
+                    {% if basket.pets.all %}
+                        <tr>
+                            <td colspan="3"><b>Order Total</b></td>
+                            <td><b>£{{ total }}</b></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <button class='btn btn-warning float-right' onClick="payWithRave()" type="button">
+                                    Checkout
+                                </button>
+                                <a class='btn btn-primary float-right mr-1' href='/'>Continue shopping</a>
+                            </td>
+                        </tr>
+                    {% endif %}
+                    </tbody>
+                </table>
             </div>
         </div>
-        {% endfor %}
     </div>
-</div>
 
+    <div class="card">
+        <div class="card-header">
+            <h4 style="text-align:center"> You may also be interested in...</h4>
+        </div>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 w-100 pt-3 pl-4">
+            {% for pet in alsoInterested %}
+                <div class="col mb-4">
+                    <div class="card">
+                        <img alt="..." class="card-img-top" src="{{ pet.image.url }}">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="{% url 'exotic_bay:pet_details' pet.type pet.slug %}">{{ pet.name }}</a>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ pet.type }}</h6>
+                                <h6 class="card-title">£{{ pet.price }}</h6>
+                                <p class="card-text">{{ pet.description }}</p>
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>
+    <script>
+        const publicKey = "{{ key }}";
+
+        function payWithRave() {
+            var x = getpaidSetup({
+                PBFPubKey: publicKey,
+                customer_email: "{{ user.email }}",
+                amount: {{ total }},
+                currency: "GBP",
+                txref: "rave-123456",
+                custom_title: "Exotic Bay",
+                onclose: function () {
+                },
+                callback: function (response) {
+                    var txref = response.tx.txRef;
+                    console.log("This is the response returned after a charge", response);
+                    x.close();
+                }
+            });
+        }
+    </script>
 {% endblock %}

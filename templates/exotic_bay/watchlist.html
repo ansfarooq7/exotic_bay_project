@@ -27,7 +27,7 @@ Watchlist
                         <h6 class="card-title">£{{ pet.price }}</h6>
                         <p class="card-text">{{ pet.description|truncatewords:20 }}</p>
                         <p class="card-text">
-                            <a exotic_bay:remove-from-watchlist href="{% url "" pet.slug %}"
+                            <a href="{% url 'exotic_bay:remove-from-watchlist' pet.slug %}"
                             class="btn btn-danger btn-sm">
                             Remove from Watchlist
                             </a>
