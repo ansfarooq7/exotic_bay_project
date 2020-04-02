@@ -30,4 +30,5 @@ urlpatterns = [
     path('inverts/<sortBy>', views.inverts, name='inverts'),
     path('marsupials/<sortBy>', views.marsupials, name='marsupials'),
     path('pets/<sortBy>', views.pets, name='pets'),
+    path('license/', views.petLicense, name='license'),
 ]

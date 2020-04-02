@@ -92,7 +92,7 @@ class Basket(models.Model):
     ref_code = models.CharField(max_length=20, blank=True, null=True)
     pets = models.ManyToManyField(PetOrder)
     start_date = models.DateTimeField(auto_now_add=True)
-    ordered_date = models.DateTimeField()
+    ordered_date = models.DateTimeField(null=True)
     ordered = models.BooleanField(default=False)
     being_delivered = models.BooleanField(default=False)
     received = models.BooleanField(default=False)

@@ -283,13 +283,14 @@ def basket(request):
         response = render(request, 'exotic_bay/basket.html', context=context_dict)
         return response
     except ObjectDoesNotExist:
+        basket = Basket.objects.create(user=request.user, ordered=False)
         messages.warning(request, "You do not have an active order")
-        return redirect("/")
+        return redirect("exotic_bay:basket")
 
 
 def watchlist(request):
     try:
-        watchlist = Watchlist.objects.get(user=request.user)
+        watchlist = Watchlist.objects.get_or_create(user=request.user)
         context_dict = {
             'watchlist': watchlist
         }
@@ -488,14 +489,14 @@ def petLicense(request):
     licenses = License.objects.filter(user=request.user)
     return render(request, 'exotic_bay/license.html', {'licenses': licenses, 'form': form})
 
- @login_required
+@login_required
 def deactivate_user_view(request):
     return render(request, "account/delete_user_account.html")
 
 @login_required
 def deactivate_user(request):
     pk = request.user.id
-    user = User.objects.get(pk=pk)
+    user = request.user
 
     if request.user.is_authenticated and request.user.id == user.id:
         user.is_active = False
