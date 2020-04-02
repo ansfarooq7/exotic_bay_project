@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.utils import timezone
 from django.conf import settings
-from django.db.models import Sum
+from django.contrib.auth.models import User
 
 from exotic_bay.forms import ContactForm, BasketAddPetForm
 from exotic_bay.models import Pet, PetOrder, Basket, Watchlist
@@ -378,3 +378,19 @@ def remove_from_watchlist(request, slug):
     else:
         messages.info(request, "You do not have an active watchlist.")
         return redirect("exotic_bay:pet_details", type=pet.type, slug=slug)
+
+@login_required
+def deactivate_user_view(request):
+    return render(request, "account/delete_user_account.html")
+
+def deactivate_user(request):
+    pk = request.user.id
+    user = User.objects.get(pk=pk)
+
+    if request.user.is_authenticated and request.user.id == user.id:
+        user.is_active = False
+        user.delete()
+        return redirect("exotic_bay:home")
+    else:
+        return HttpResponse("Cannot delete account")
+
