@@ -1,0 +1,46 @@
+{% extends "exotic_bay/base.html" %}
+{% load crispy_forms_tags %}
+{% block title_block %}License{% endblock %}
+
+{% block body_block %}
+    <div class="container">
+        <div class="row wow fadeIn">
+            <div class='col-6 offset-3 py-3 px-md-5'>
+                <div class="text-center">
+                    <h2 class="h1 mb-3 font-weight-normal">Current Licenses</h2>
+                    {% if licenses %}
+                        {% for license in licenses %}
+                            <div class="form-group">
+                                <label class="form-check-label form-control">
+                                    {{ license.pet.name }}
+
+                                    {% if license.verified %}
+                                        <span class="verified float-right">
+                                        Verified
+                                    <i class="fas fa-check-circle"></i>
+                                    </span>
+                                    {% else %}
+                                        <span class="unverified float-right">
+                                        Unverified
+                                    <i class="fas fa-times-circle"></i>
+                                    </span>
+                                    {% endif %}
+                                </label>
+                            </div>
+                        {% endfor %}
+                        {% else %}
+                        <p>You do not have any licenses associated with your account:</p>
+                    {% endif %}
+                    <hr/>
+                    <h1 class="h2 mb-3 font-weight-normal">Add License</h1>
+
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <button class="btn btn-primary" type="submit">Upload</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

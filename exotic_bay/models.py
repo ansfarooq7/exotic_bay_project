@@ -1,12 +1,11 @@
 import datetime
 
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
 from django.shortcuts import reverse
 from django.template.defaultfilters import slugify
-from django_countries.fields import CountryField
-from django.contrib.auth.models import User
 
 CATEGORY_CHOICES = (
     ('Reptiles', 'Reptiles'),
@@ -24,8 +23,6 @@ ADDRESS_CHOICES = (
 
 class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    stripe_customer_id = models.CharField(max_length=50, blank=True, null=True)
-    one_click_purchasing = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username
@@ -97,24 +94,8 @@ class Basket(models.Model):
     start_date = models.DateTimeField(auto_now_add=True)
     ordered_date = models.DateTimeField()
     ordered = models.BooleanField(default=False)
-    shipping_address = models.ForeignKey(
-        'Address', related_name='shipping_address', on_delete=models.SET_NULL, blank=True, null=True)
-    billing_address = models.ForeignKey(
-        'Address', related_name='billing_address', on_delete=models.SET_NULL, blank=True, null=True)
-    payment = models.ForeignKey(
-        'Payment', on_delete=models.SET_NULL, blank=True, null=True)
     being_delivered = models.BooleanField(default=False)
     received = models.BooleanField(default=False)
-
-    '''
-    1. Item added to basket
-    2. Adding a billing address
-    (Failed checkout)
-    3. Payment
-    (Preprocessing, processing, packaging etc.)
-    4. Being delivered
-    5. Received
-    '''
 
     def __str__(self):
         return self.user.username
@@ -138,34 +119,12 @@ class Watchlist(models.Model):
 class License(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
-
-
-class Address(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             on_delete=models.CASCADE)
-    street_address = models.CharField(max_length=100)
-    apartment_address = models.CharField(max_length=100)
-    country = CountryField(multiple=False)
-    postcode = models.CharField(max_length=10)
-    address_type = models.CharField(max_length=1, choices=ADDRESS_CHOICES)
-    default = models.BooleanField(default=False)
+    license = models.FileField(upload_to='licenses/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    verified = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.user.username
-
-    class Meta:
-        verbose_name_plural = 'Addresses'
-
-
-class Payment(models.Model):
-    stripe_charge_id = models.CharField(max_length=50)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             on_delete=models.SET_NULL, blank=True, null=True)
-    amount = models.FloatField()
-    timestamp = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.user.name
+        return f"{self.user.username}'s {self.pet.name} license"
 
 
 def userprofile_receiver(sender, instance, created, *args, **kwargs):
