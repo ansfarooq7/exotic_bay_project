@@ -10,6 +10,18 @@
 {% endblock %}
 
 {% block custom_style %}
+    <script type="text/javascript" src="{% static 'js/jquery.zoom.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            $('.image-zoom')
+                .wrap('<span style="display:inline-block"></span>')
+                .css('display', 'block')
+                .parent()
+                .zoom({
+                    url: $(this).find('img').attr('data-zoom')
+                });
+        });
+    </script>
 {% endblock %}
 
 {% block body_block %}
@@ -30,7 +42,7 @@
             <div class="row wow fadeIn">
                 <div class="col-md-6 mb-4">
                     {% if image %}
-                        <img class="img-fluid img-thumbnail" src="{{ pet.image.url }}"/>
+                        <img class="image-zoom img-fluid img-thumbnail" src="{{ pet.image.url }}"/>
                     {% endif %}
                 </div>
 
@@ -62,7 +74,8 @@
                                 {% endif %}
 
                                 {% if user.is_authenticated %}
-                                    <a href="{% url "exotic_bay:add-to-watchlist" pet.slug %}" class="btn btn-secondary btn-md my-1 p">
+                                    <a href="{% url "exotic_bay:add-to-watchlist" pet.slug %}"
+                                       class="btn btn-secondary btn-md my-1 p">
                                         Add to Watchlist
                                     </a>
                                 {% else %}
