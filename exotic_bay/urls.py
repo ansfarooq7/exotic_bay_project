@@ -14,6 +14,8 @@ urlpatterns = [
     path('add-to-basket/<slug>', views.add_to_basket, name='add-to-basket'),
     path('remove-single-pet-from-basket/<slug>', views.remove_single_pet_from_basket,
          name='remove-single-pet-from-basket'),
+    path('remove-pet-from-basket/<slug>', views.remove_pet_from_basket,
+         name='remove-pet-from-basket'),
     path('add-single-pet-to-basket/<slug>', views.add_single_pet_to_basket,
          name='add-single-pet-to-basket'),
     path('watchlist/', views.watchlist, name='watchlist'),
