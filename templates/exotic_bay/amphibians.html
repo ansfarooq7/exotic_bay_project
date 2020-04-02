@@ -12,6 +12,17 @@
                <h4 style="text-align:center"> Amphibians </h4>
             </div>
         </div>
+
+        <div class=" mx-auto  pt-3">
+        <div aria-label="Basic example" class="btn-group" role="group">
+            <a class="btn btn-secondary" href="{% url 'exotic_bay:amphibians' 1 %}">Most Popular</a>
+            <a class="btn btn-secondary" href="{% url 'exotic_bay:amphibians' 2 %}">Least Popular</a>
+            <a class="btn btn-secondary" href="{% url 'exotic_bay:amphibians' 3 %}">Newest Added</a>
+            <a class="btn btn-secondary" href="{% url 'exotic_bay:amphibians' 4 %}">Oldest Added</a>
+            <a class="btn btn-secondary" href="{% url 'exotic_bay:amphibians' 5 %}">Most Expensive</a>
+            <a class="btn btn-secondary" href="{% url 'exotic_bay:amphibians' 6 %}">Least Expensive</a>
+        </div>
+    </div>
         <div class="container">
         {% if amphibians.exists %}
             <div class="row py-3 px-5">
@@ -39,4 +50,10 @@
         {% endif %}
         </div>
     </div>
+<script>
+    $(document).ready(function () {
+        $('a.active').removeClass('active');
+        $('a[href="' + location.pathname + '"]').closest('a').addClass('active');
+    });
+</script>
 {% endblock %}

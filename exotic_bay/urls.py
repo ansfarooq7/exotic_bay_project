@@ -24,10 +24,10 @@ urlpatterns = [
     path('delete-user-profile/', views.deactivate_user_view, name='delete-user-profile'),
     path('delete-user/', views.deactivate_user, name='delete-user'),
     path('search/', views.search, name='search'),
-    path('reptiles/', views.reptiles, name='reptiles'),
-    path('canidae/', views.canidae, name='canidae'),
-    path('amphibians/', views.amphibians, name='amphibians'),
-    path('inverts/', views.inverts, name='inverts'),
-    path('marsupials/', views.marsupials, name='marsupials'),
-
+    path('reptiles/<sortBy>', views.reptiles, name='reptiles'),
+    path('canidae/<sortBy>', views.canidae, name='canidae'),
+    path('amphibians/<sortBy>', views.amphibians, name='amphibians'),
+    path('inverts/<sortBy>', views.inverts, name='inverts'),
+    path('marsupials/<sortBy>', views.marsupials, name='marsupials'),
+    path('pets/<sortBy>', views.pets, name='pets'),
 ]
