@@ -27,5 +27,6 @@ urlpatterns = [
     path('amphibians/', views.amphibians, name='amphibians'),
     path('inverts/', views.inverts, name='inverts'),
     path('marsupials/', views.marsupials, name='marsupials'),
+    path('license/', views.petLicense, name='license'),
 
 ]

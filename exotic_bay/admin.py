@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from exotic_bay.models import Pet, PetOrder, Basket, License, Payment, Address, UserProfile, Watchlist
+from exotic_bay.models import Pet, PetOrder, Basket, License, UserProfile, Watchlist
 
 
 class BasketAdmin(admin.ModelAdmin):
@@ -9,15 +9,9 @@ class BasketAdmin(admin.ModelAdmin):
         'ordered',
         'being_delivered',
         'received',
-        'shipping_address',
-        'billing_address',
-        'payment'
     ]
     list_display_links = [
         'user',
-        'shipping_address',
-        'billing_address',
-        'payment'
     ]
     list_filter = [
         'ordered',
@@ -29,25 +23,9 @@ class BasketAdmin(admin.ModelAdmin):
     ]
 
 
-class AddressAdmin(admin.ModelAdmin):
-    list_display = [
-        'user',
-        'street_address',
-        'apartment_address',
-        'country',
-        'postcode',
-        'address_type',
-        'default'
-    ]
-    list_filter = ['default', 'address_type', 'country']
-    search_fields = ['user', 'street_address', 'apartment_address', 'postcode']
-
-
 admin.site.register(Pet)
 admin.site.register(PetOrder)
 admin.site.register(Basket, BasketAdmin)
 admin.site.register(Watchlist)
-admin.site.register(Payment)
 admin.site.register(License)
-admin.site.register(Address, AddressAdmin)
 admin.site.register(UserProfile)

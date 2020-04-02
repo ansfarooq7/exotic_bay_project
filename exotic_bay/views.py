@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
@@ -5,11 +6,9 @@ from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.utils import timezone
-from django.conf import settings
-from django.db.models import Sum
 
-from exotic_bay.forms import ContactForm, BasketAddPetForm
-from exotic_bay.models import Pet, PetOrder, Basket, Watchlist
+from exotic_bay.forms import ContactForm, BasketAddPetForm, LicenseForm
+from exotic_bay.models import Pet, PetOrder, Basket, Watchlist, License
 
 
 def home(request):
@@ -211,6 +210,7 @@ def watchlist(request):
         messages.warning(request, "You do not have an active watchlist")
         return redirect("/")
 
+
 @login_required
 def add_to_basket(request, slug):
     pet = get_object_or_404(Pet, slug=slug)
@@ -278,6 +278,7 @@ def remove_single_pet_from_basket(request, slug):
     else:
         messages.info(request, "You do not have an active order")
         return redirect("exotic_bay:pet_details", type=pet.type, slug=slug)
+
 
 @login_required
 def remove_pet_from_basket(request, slug):
@@ -378,3 +379,22 @@ def remove_from_watchlist(request, slug):
     else:
         messages.info(request, "You do not have an active watchlist.")
         return redirect("exotic_bay:pet_details", type=pet.type, slug=slug)
+
+@login_required
+def petLicense(request):
+    if request.method == 'POST':
+        form = LicenseForm(request.POST, request.FILES)
+        if form.is_valid():
+            cd = form.cleaned_data
+            pet = cd['pet']
+            newLicense = License(license=request.FILES['license'])
+            newLicense.user = request.user
+            newLicense.pet = pet
+            newLicense.save()
+            return redirect('exotic_bay:license')
+    else:
+        form = LicenseForm()  # An empty, unbound form
+
+    # Load documents for the list page
+    licenses = License.objects.filter(user=request.user)
+    return render(request, 'exotic_bay/license.html', {'licenses': licenses, 'form': form})

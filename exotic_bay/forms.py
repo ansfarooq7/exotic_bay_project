@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
-from exotic_bay.models import UserProfile
-from django.contrib.auth.forms import UserCreationForm
+
+from exotic_bay.models import License, Pet
 
 
 class BasketAddPetForm(forms.Form):
@@ -23,9 +23,9 @@ class ContactForm(forms.Form):
     message = forms.CharField(widget=forms.Textarea, required=True)
 
 
-class RegisterForm(UserCreationForm):
-    email = forms.EmailField()
+class LicenseForm(forms.ModelForm):
+    pet = forms.ModelChoiceField(queryset=Pet.objects.all(), empty_label=None)
 
     class Meta:
-        model = User
-        fields = ["username", "email", "password1", "password2"]
+        model = License
+        fields = ('pet', 'license',)
