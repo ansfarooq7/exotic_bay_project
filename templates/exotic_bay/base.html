@@ -52,7 +52,8 @@
                 <div class="float-right pr-3">
                     {% if user.is_authenticated %}
                     <div class="dropdown float-left pr-1">
-                        <a aria-expanded="false" aria-haspopup="true" class="btn btn-outline-secondary btn-sm dropdown-toggle"
+                        <a aria-expanded="false" aria-haspopup="true"
+                           class="btn btn-outline-secondary btn-sm dropdown-toggle"
                            data-toggle="dropdown" href="" id="dropdownMenuLink" role="button">
                             <i class="fas fa-user"></i>
                         </a>
@@ -73,34 +74,39 @@
                                 <i class="fas fa-sign-out-alt"></i>
                                 Logout
                             </a>
+                            <a class="dropdown-item" href="{% url 'exotic_bay:delete-user-profile' %}">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Delete Account
+                            </a>
                         </div>
                     </div>
                     {% else %}
                     <!-- Pets Dropdown menu-->
-                       <ul class="navbar-nav">
-                    <li class="nav-item dropdown active">
-                        <a class="btn btn-outline-secondary btn-sm dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenuLink" role="button">
-                            <i class="fas fa-user"></i>
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{% url 'account_login' %}">
-                                <i class="fas fa-sign-in-alt"></i>
-                                Login
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown active">
+                            <a class="btn btn-outline-secondary btn-sm dropdown-toggle" data-toggle="dropdown" href="#"
+                               id="dropdownMenuLink" role="button">
+                                <i class="fas fa-user"></i>
                             </a>
-                            <a class="dropdown-item" href="{% url 'account_signup' %}">
-                                <i class="fas fa-pencil-alt"></i>
-                                Sign Up
-                            </a>
-                        </div>
-                    </li>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{% url 'account_login' %}">
+                                    <i class="fas fa-sign-in-alt"></i>
+                                    Login
+                                </a>
+                                <a class="dropdown-item" href="{% url 'account_signup' %}">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    Sign Up
+                                </a>
+                            </div>
+                        </li>
                     </ul>
 
-                    </div>
-                    {% endif %}
-                    <a class="btn btn-outline-secondary btn-sm" href="{% url 'exotic_bay:contact' %}" role="button">Contact
-                        Us</a>
                 </div>
+                {% endif %}
+                <a class="btn btn-outline-secondary btn-sm" href="{% url 'exotic_bay:contact' %}" role="button">Contact
+                    Us</a>
             </div>
+        </div>
         </div>
     </nav>
     <nav class="navbar navbar-expand-sm bg-light navbar-light">
@@ -125,19 +131,22 @@
                         </a>
                     </li>
                     </li>
+
                     <!-- Pets Dropdown menu-->
                     <li class="nav-item dropdown active">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="navbardrop">
-                            <i class="fas fa-spider"></i>
-                            Pets
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{% url 'exotic_bay:reptiles' %}">Reptiles</a>
-                            <a class="dropdown-item" href="{% url 'exotic_bay:canidae' %}">Canidae</a>
-                            <a class="dropdown-item" href="{% url 'exotic_bay:amphibians' %}">Amphibians</a>
-                            <a class="dropdown-item" href="{% url 'exotic_bay:inverts' %}">Inverts</a>
-                            <a class="dropdown-item" href="{% url 'exotic_bay:marsupials' %}">Marsupial</a>
-                        </div>
+                        <div class="btn-group">
+                            <a class="nav-link" href="{% url 'exotic_bay:pets' 0 %}">
+                                <i class="fas fa-spider"></i>
+                                Pets
+                            </a>
+                            <a class="nav-link dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" href="#" id="navbardrop"></a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{% url 'exotic_bay:reptiles' 0 %}">Reptiles</a>
+                                <a class="dropdown-item" href="{% url 'exotic_bay:canidae' 0 %}">Canidae</a>
+                                <a class="dropdown-item" href="{% url 'exotic_bay:amphibians' 0 %}">Amphibians</a>
+                                <a class="dropdown-item" href="{% url 'exotic_bay:inverts' 0 %}">Inverts</a>
+                                <a class="dropdown-item" href="{% url 'exotic_bay:marsupials' 0 %}">Marsupial</a>
+                            </div>
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item active">

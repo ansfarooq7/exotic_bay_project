@@ -2,41 +2,58 @@
 {% load staticfiles %}
 
 {% block title_block %}
-    Reptiles
+Reptiles
 {% endblock %}
 
 {% block body_block %}
-    <div class="card">
-      <div class="card-header">
-           <div class="col-4 mx-auto">
-               <h4 style="text-align:center"> Canidae </h4>
-            </div>
-        </div>
-        <div class="container">
-        {% if canidae.exists %}
-            <div class="row py-3 px-5">
-                {% for pet in canidae %}
-                    <div class="col-3 py-3">
-                        <div class="card h-100">
-                            <a href="{% url 'exotic_bay:pet_details' pet.type pet.slug %}">
-                                <img alt="" class="card-img-top" src="{{ pet.image.url }}">
-                            </a>
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <a href="{% url 'exotic_bay:pet_details' pet.type pet.slug %}">{{ pet.name }}</a>
-                                </h5>
-                                <h6 class="card-subtitle mb-2 text-muted">{{ pet.type }}</h6>
-                                <h6 class="card-title">£{{ pet.price }}</h6>
-                                <p class="card-text">{{ pet.description|truncatewords:20 }}</p>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        {% else %}
-            <br />
-            <p class="">There are currently no Canidae in stock.</p>
-        {% endif %}
+
+<div class="card">
+    <div class="card-header">
+        <div class="col-4 mx-auto">
+            <h4 style="text-align:center"> Canidae </h4>
         </div>
     </div>
+    <div class="mx-auto pt-3">
+        <div aria-label="Basic example" class="btn-group" role="group">
+            <a class="btn btn-secondary" href="{% url 'exotic_bay:canidae' 1 %}">Most Popular</a>
+            <a class="btn btn-secondary" href="{% url 'exotic_bay:canidae' 2 %}">Least Popular</a>
+            <a class="btn btn-secondary" href="{% url 'exotic_bay:canidae' 3 %}">Newest Added</a>
+            <a class="btn btn-secondary" href="{% url 'exotic_bay:canidae' 4 %}">Oldest Added</a>
+            <a class="btn btn-secondary" href="{% url 'exotic_bay:canidae' 5 %}">Most Expensive</a>
+            <a class="btn btn-secondary" href="{% url 'exotic_bay:canidae' 6 %}">Least Expensive</a>
+        </div>
+    </div>
+    <div class="container">
+        {% if canidae.exists %}
+        <div class="row py-3 px-5">
+            {% for pet in canidae %}
+            <div class="col-3 py-3">
+                <div class="card h-100">
+                    <a href="{% url 'exotic_bay:pet_details' pet.type pet.slug %}">
+                        <img alt="" class="card-img-top" src="{{ pet.image.url }}">
+                    </a>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="{% url 'exotic_bay:pet_details' pet.type pet.slug %}">{{ pet.name }}</a>
+                        </h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ pet.type }}</h6>
+                        <h6 class="card-title">£{{ pet.price }}</h6>
+                        <p class="card-text">{{ pet.description|truncatewords:20 }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <br/>
+        <p class="">There are currently no Canidae in stock.</p>
+        {% endif %}
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('a.active').removeClass('active');
+        $('a[href="' + location.pathname + '"]').closest('a').addClass('active');
+    });
+</script>
 {% endblock %}

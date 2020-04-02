@@ -23,10 +23,46 @@ def home(request):
     return response
 
 
-def reptiles(request):
+def pets(request, sortBy):
+    # Filter pet based on sort.
     context_dict = {}
-    context_dict['reptiles'] = Pet.objects.filter(type='Reptiles')
+    if sortBy == '1':
+        context_dict['pets'] = Pet.objects.all().order_by('-orders')
+    elif sortBy == '2':
+        context_dict['pets'] = Pet.objects.all().order_by('orders')
+    elif sortBy == '3':
+        context_dict['pets'] = Pet.objects.all().order_by('-date_added')
+    elif sortBy == '4':
+        context_dict['pets'] = Pet.objects.all().order_by('date_added')
+    elif sortBy == '5':
+        context_dict['pets'] = Pet.objects.all().order_by('-price')
+    elif sortBy == '6':
+        context_dict['pets'] = Pet.objects.all().order_by('price')
+    elif sortBy == '0':
+        context_dict['pets'] = Pet.objects.all()
+    # Obtain our Response object early so we can add cookie information.
+    response = render(request, 'exotic_bay/pets.html', context=context_dict)
 
+    # Render the response and send it back.
+    return response
+
+def reptiles(request, sortBy):
+    # Filter pet based on sort.
+    context_dict = {}
+    if sortBy == '1':
+        context_dict['reptiles'] = Pet.objects.filter(type='Reptiles').order_by('-orders')
+    elif sortBy == '2':
+        context_dict['reptiles'] = Pet.objects.filter(type='Reptiles').order_by('orders')
+    elif sortBy == '3':
+        context_dict['reptiles'] = Pet.objects.filter(type='Reptiles').order_by('-date_added')
+    elif sortBy == '4':
+        context_dict['reptiles'] = Pet.objects.filter(type='Reptiles').order_by('date_added')
+    elif sortBy == '5':
+        context_dict['reptiles'] = Pet.objects.filter(type='Reptiles').order_by('-price')
+    elif sortBy == '6':
+        context_dict['reptiles'] = Pet.objects.filter(type='Reptiles').order_by('price')
+    elif sortBy == '0':
+        context_dict['reptiles'] = Pet.objects.filter(type='Reptiles')
     # Obtain our Response object early so we can add cookie information.
     response = render(request, 'exotic_bay/reptiles.html', context=context_dict)
 
@@ -34,9 +70,23 @@ def reptiles(request):
     return response
 
 
-def canidae(request):
+def canidae(request, sortBy):
+    # Filter pet based on sort.
     context_dict = {}
-    context_dict['canidae'] = Pet.objects.filter(type='Canidae')
+    if sortBy == '1':
+        context_dict['canidae'] = Pet.objects.filter(type='Canidae').order_by('orders')
+    elif sortBy == '2':
+        context_dict['canidae'] = Pet.objects.filter(type='Canidae').order_by('-orders')
+    elif sortBy == '3':
+        context_dict['canidae'] = Pet.objects.filter(type='Canidae').order_by('-date_added')
+    elif sortBy == '4':
+        context_dict['canidae'] = Pet.objects.filter(type='Canidae').order_by('date_added')
+    elif sortBy == '5':
+        context_dict['canidae'] = Pet.objects.filter(type='Canidae').order_by('-price')
+    elif sortBy == '6':
+        context_dict['canidae'] = Pet.objects.filter(type='Canidae').order_by('price')
+    else:
+        context_dict['canidae'] = Pet.objects.filter(type='Canidae')
 
     # Obtain our Response object early so we can add cookie information.
     response = render(request, 'exotic_bay/canidae.html', context=context_dict)
@@ -45,9 +95,23 @@ def canidae(request):
     return response
 
 
-def amphibians(request):
+def amphibians(request, sortBy):
+    # Filter pet based on sort.
     context_dict = {}
-    context_dict['amphibians'] = Pet.objects.filter(type='Amphibians')
+    if sortBy == '1':
+        context_dict['amphibians'] = Pet.objects.filter(type='Amphibians').order_by('-orders')
+    elif sortBy == '2':
+        context_dict['amphibians'] = Pet.objects.filter(type='Amphibians').order_by('orders')
+    elif sortBy == '3':
+        context_dict['amphibians'] = Pet.objects.filter(type='Amphibians').order_by('-date_added')
+    elif sortBy == '4':
+        context_dict['amphibians'] = Pet.objects.filter(type='Amphibians').order_by('date_added')
+    elif sortBy == '5':
+        context_dict['amphibians'] = Pet.objects.filter(type='Amphibians').order_by('-price')
+    elif sortBy == '6':
+        context_dict['amphibians'] = Pet.objects.filter(type='Amphibians').order_by('price')
+    else:
+        context_dict['amphibians'] = Pet.objects.filter(type='Amphibians')
 
     # Obtain our Response object early so we can add cookie information.
     response = render(request, 'exotic_bay/amphibians.html', context=context_dict)
@@ -56,24 +120,49 @@ def amphibians(request):
     return response
 
 
-def inverts(request):
+def inverts(request, sortBy):
+    # Filter pet based on sort.
     context_dict = {}
-    context_dict['inverts'] = Pet.objects.filter(type='Inverts')
+    if sortBy == '1':
+        context_dict['inverts'] = Pet.objects.filter(type='Inverts').order_by('-orders')
+    elif sortBy == '2':
+        context_dict['inverts'] = Pet.objects.filter(type='Inverts').order_by('orders')
+    elif sortBy == '3':
+        context_dict['inverts'] = Pet.objects.filter(type='Inverts').order_by('-date_added')
+    elif sortBy == '4':
+        context_dict['inverts'] = Pet.objects.filter(type='Inverts').order_by('date_added')
+    elif sortBy == '5':
+        context_dict['inverts'] = Pet.objects.filter(type='Inverts').order_by('-price')
+    elif sortBy == '6':
+        context_dict['inverts'] = Pet.objects.filter(type='Inverts').order_by('price')
+    else:
+        context_dict['inverts'] = Pet.objects.filter(type='Inverts')
 
     # Obtain our Response object early so we can add cookie information.
     response = render(request, 'exotic_bay/inverts.html', context=context_dict)
-
     # Render the response and send it back.
     return response
 
-
-def marsupials(request):
+def marsupials(request, sortBy):
+    # Filter pet based on sort.
     context_dict = {}
-    context_dict['marsupials'] = Pet.objects.filter(type='Marsupials')
+    if sortBy == '1':
+        context_dict['marsupials'] = Pet.objects.filter(type='Marsupials').order_by('-orders')
+    elif sortBy == '2':
+        context_dict['marsupials'] = Pet.objects.filter(type='Marsupials').order_by('orders')
+    elif sortBy == '3':
+        context_dict['marsupials'] = Pet.objects.filter(type='Marsupials').order_by('-date_added')
+    elif sortBy == '4':
+        context_dict['marsupials'] = Pet.objects.filter(type='Marsupials').order_by('date_added')
+    elif sortBy == '5':
+        context_dict['marsupials'] = Pet.objects.filter(type='Marsupials').order_by('-price')
+    elif sortBy == '6':
+        context_dict['marsupials'] = Pet.objects.filter(type='Marsupials').order_by('price')
+    else:
+        context_dict['marsupials'] = Pet.objects.filter(type='Marsupials')
 
     # Obtain our Response object early so we can add cookie information.
     response = render(request, 'exotic_bay/marsupials.html', context=context_dict)
-
     # Render the response and send it back.
     return response
 
@@ -398,3 +487,19 @@ def petLicense(request):
     # Load documents for the list page
     licenses = License.objects.filter(user=request.user)
     return render(request, 'exotic_bay/license.html', {'licenses': licenses, 'form': form})
+
+ @login_required
+def deactivate_user_view(request):
+    return render(request, "account/delete_user_account.html")
+
+@login_required
+def deactivate_user(request):
+    pk = request.user.id
+    user = User.objects.get(pk=pk)
+
+    if request.user.is_authenticated and request.user.id == user.id:
+        user.is_active = False
+        user.delete()
+        return redirect("exotic_bay:home")
+    else:
+        return HttpResponse("Cannot delete account")

@@ -1,0 +1,23 @@
+{% extends 'exotic_bay/base.html' %}
+
+{% block title_block %}
+    Delete Account
+{% endblock %}
+
+{% block body_block %}
+<div class="container">
+    <div class="row wow fadeIn">
+        <div class='col-6 offset-3 py-3 px-md-5'>
+            <div class="text-center">
+                <h2>Delete your account</h2>
+                <hr>
+                <p>Deleting your account is irreversible.
+                    Please be sure you want to delete your account before you confirm.</p>
+                <a class="btn btn-outline-secondary" href="{% url 'exotic_bay:delete-user' %}">
+                    Confirm
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
