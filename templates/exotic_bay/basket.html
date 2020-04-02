@@ -42,7 +42,7 @@
                             </td>
                             <td>
                                 £{{ pet_order.pet.price }}
-                                <a class="close"><span>&times;</span>
+                                <a class="close" href="{% url 'exotic-bay:remove-pet-from-basket' pet_order.pet.slug %}"><span>&times;</span>
                                 </a>
                             </td>
                         </tr>

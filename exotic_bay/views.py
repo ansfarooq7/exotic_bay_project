@@ -279,6 +279,33 @@ def remove_single_pet_from_basket(request, slug):
         messages.info(request, "You do not have an active order")
         return redirect("exotic_bay:pet_details", type=pet.type, slug=slug)
 
+@login_required
+def remove_pet_from_basket(request, slug):
+    pet = get_object_or_404(Pet, slug=slug)
+    basket_qs = Basket.objects.filter(
+        user=request.user,
+        ordered=False
+    )
+    if basket_qs.exists():
+        basket = basket_qs[0]
+        # check if the pet order is in the basket
+        if basket.pets.filter(pet__slug=pet.slug).exists():
+            pet_order = PetOrder.objects.filter(
+                pet=pet,
+                user=request.user,
+                ordered=False
+            )[0]
+            if pet_order.quantity >= 1:
+                basket.pets.remove(pet_order)
+            messages.info(request, "This pet quantity was updated.")
+            return redirect("exotic_bay:basket")
+        else:
+            messages.info(request, "This pet was not in your basket")
+            return redirect("exotic_bay:pet_details", type=pet.type, slug=slug)
+    else:
+        messages.info(request, "You do not have an active order")
+        return redirect("exotic_bay:pet_details", type=pet.type, slug=slug)
+
 
 @login_required
 def add_single_pet_to_basket(request, slug):
