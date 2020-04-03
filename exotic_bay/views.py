@@ -290,7 +290,7 @@ def basket(request):
 
 def watchlist(request):
     try:
-        watchlist = Watchlist.objects.get_or_create(user=request.user)
+        watchlist = Watchlist.objects.get(user=request.user)
         context_dict = {
             'watchlist': watchlist
         }
